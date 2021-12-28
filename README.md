@@ -1,6 +1,6 @@
 # BenchBotDocs
 
-Read the 'Guidelines' document in the 'Codes' directory to know which code to use for what condition.\
+Read the 'Guidelines' document in the 'Codes' directory to know which code to use for what condition.
 
 For the purpose of testing the motors, below listed items were used:
 1. 2 NEMA 34 Motors
