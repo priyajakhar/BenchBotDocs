@@ -36,9 +36,9 @@ class Window(tk.Tk):
                 print('Please enter all values')
 
             else:
-                r = int(r)
+                r = int(r)*10
                 positions = [r, r]
-                c = int(c)
+                c = int(c)*10
                 rt = int(rt)
                 ct = int(ct)
                 #for each row on the table
