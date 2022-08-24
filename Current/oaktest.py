@@ -11,7 +11,7 @@ def flushframes():
 def captureImage():
   flushframes()
   t = str(int(time.time()))
-  filename = f"OAK-{t}.jpg"
+  filename = f"NC_OAK_{t}.jpg"
   frame = queue.get()
   imOut = frame.getCvFrame()
   cv2.imwrite(filename, imOut)
@@ -33,7 +33,7 @@ flushframes()
 
 
 # Capture Images
-for i in range(2):
+for i in range(1):
   print('Clicking picture....')
   time.sleep(2)
   captureImage()

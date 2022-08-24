@@ -96,10 +96,10 @@ def flushframes():
   for i in range(50):
     frame = queue.get()
 
-def captureImage():
+def captureImage(timestamp):
   flushframes()
-  t = str(int(time.time()))
-  filename = f"OAK-{t}.jpg"
+  # t = str(int(time.time()))
+  filename = f"{STATE}_OAK_{timestamp}.jpg"
   frame = queue.get()
   imOut = frame.getCvFrame()
   cv2.imwrite(filename, imOut)
@@ -531,20 +531,22 @@ class AcquisitionPage(QWidget):
                     if STOP_EXEC:
                         break
                     # Trigger capture of image
+                    t = str(int(time.time()))
                     os.startfile(path)
-                    captureImage()
+                    captureImage(t)
                     time.sleep(8)
                     # Move camera plate to next point
                     self.mm.moveRelative(self.camera_motor, total_distance)
                     self.mm.waitForMotionCompletion()
-                    threading.Thread(target=file_rename()).start()
+                    threading.Thread(target=file_rename(t)).start()
                 if STOP_EXEC:
                     break
                 # Trigger image capture at last point
+                t = str(int(time.time()))
                 os.startfile(path)
-                captureImage()
+                captureImage(t)
                 time.sleep(8)
-                threading.Thread(target=file_rename()).start()
+                threading.Thread(target=file_rename(t)).start()
 
                 self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
                 self.mm.waitForMotionCompletion()
@@ -580,15 +582,15 @@ class AcquisitionPage(QWidget):
                 '     Time Elapsed: '+str(elapsed_hr) + ' hrs '+str(elapsed_min) + ' mins')
 
 
-def file_rename():
+def file_rename(timestamp):
     time.sleep(2)
-    t = str(int(time.time()))
+    # t = str(int(time.time()))
     for file_name in os.listdir('.'):
-        if file_name.startswith(STATE+'X'):
+        if file_name.startswith(STATE+'A'):
             if file_name.endswith('.JPG'):
-                new_name = f"{STATE}_{t}.JPG"
+                new_name = f"{STATE}_{timestamp}.JPG"
             elif file_name.endswith('.ARW'):
-                new_name = f"{STATE}_{t}.ARW"
+                new_name = f"{STATE}_{timestamp}.ARW"
         else:
             continue
         os.rename(f"{file_name}", f"{new_name}")
