@@ -438,10 +438,10 @@ class AcquisitionPage(QWidget):
         self.mm.configAxisDirection(
             self.camera_motor, DIRECTION.POSITIVE)
 
-        for axis in WHEEL_MOTORS:
-            self.mm.configAxis(
-                axis, MICRO_STEPS.ustep_8, MECH_GAIN.enclosed_timing_belt_mm_turn)
-            self.mm.configAxisDirection(axis, DIRECTIONS[axis-2])
+        # for axis in WHEEL_MOTORS:
+            # self.mm.configAxis(
+                # axis, MICRO_STEPS.ustep_8, MECH_GAIN.enclosed_timing_belt_mm_turn)
+            # self.mm.configAxisDirection(axis, DIRECTIONS[axis-2])
 
         self.mm.emitAcceleration(50)
         self.mm.emitSpeed(80)
@@ -488,7 +488,7 @@ class AcquisitionPage(QWidget):
         t = str(int(time.time()))
         os.startfile(PATH)
         save_oak_image(t)
-        time.sleep(8)
+        # time.sleep(8)
         threading.Thread(target=self.file_rename(t)).start()
     
     def file_rename(self, timestamp):
@@ -567,13 +567,15 @@ class AcquisitionPage(QWidget):
             return False
 
     def move_files(self):
-        sony_folder = os.getcwd()+'\\OAK'
-        oak_folder = os.getcwd()+'\\SONY'
+        oak_folder = os.getcwd()+'\\OAK'
+        sony_folder = os.getcwd()+'\\SONY'
         for file in os.listdir('.'):
-            if file.endswith('.JPG') or file.endswith('.ARW'):
-                shutil.move(file, sony_folder)
-            elif file.endswith('.jpg'):
+            # if file.endswith('.JPG') or file.endswith('.ARW'):
+            if file.startswith(STATE+'_OAK'):
                 shutil.move(file, oak_folder)
+            # elif file.endswith('.jpg'):
+            elif file.startswith(STATE):
+                shutil.move(file, sony_folder)
             else:
                 continue
 
@@ -590,8 +592,8 @@ class AcquisitionPage(QWidget):
             if pots == 0 or pots == 1:
                 if STOP_EXEC:
                     break
-                self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
-                self.mm.waitForMotionCompletion()
+                # self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
+                # self.mm.waitForMotionCompletion()
             else:
                 # expected_images += pots
                 # total distance between home and end sensor
@@ -609,8 +611,8 @@ class AcquisitionPage(QWidget):
                 self.move_files()
 
                 direction = not direction
-                self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
-                self.mm.waitForMotionCompletion()
+                # self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
+                # self.mm.waitForMotionCompletion()
 
         if STOP_EXEC:
             self.stop()
