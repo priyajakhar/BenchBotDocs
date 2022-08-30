@@ -12,10 +12,10 @@ import numpy as np
 from datetime import date
 import select
 from dotenv import load_dotenv
-import RPi.GPIO as GPIO
 
 from support.MachineMotion import *
 sys.path.append("..")
+from support.RPI_Sensors import *
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import *
@@ -53,51 +53,31 @@ PROCESS_COMPLETE = False
 # global flag to store the state
 STATE = ""
 # name of species sheet file
-SPECIES_SHEET = "SpeciesSheet.xlsx"
+SPECIES_SHEET = "support/SpeciesSheet.xlsx"
 # name of images sheet file
-IMAGES_SHEET = "ImagesSheet.xlsx"
+IMAGES_SHEET = "support/ImagesSheet.xlsx"
 
 ############################### Ultrasonic sensors functions ###############################
-GPIO.setmode(GPIO.BCM)
 
 # LOADING OFFSETS
-offsets = np.loadtxt('SensorOffsets.csv', delimiter=',', skiprows=1)
+offsets = np.loadtxt('support/SensorOffsets.csv', delimiter=',', skiprows=1)
 
 # Helper function for getting distance measurements from sensor
 
-def distance(trigger, echo):
-    GPIO.setup(trigger, GPIO.OUT)
-    GPIO.setup(echo, GPIO.IN)
-    # set Trigger to HIGH and then to LOW in 0.01ms
-    GPIO.output(trigger, True)
-    time.sleep(0.00001)
-    GPIO.output(trigger, False)
-     
-    start_time = time.time()
-    stop_time = time.time()
-    # save time of Echo pulse and calculate the difference
-    while GPIO.input(echo) == 0:
-        start_time = time.time()
-    while GPIO.input(echo) == 1:
-        stop_time = time.time()
-    time_elapsed = stop_time - start_time
-        
-    # multiply with the sonic speed (34300 cm/s) then divide by 2 (to and from time)
-    distance = (time_elapsed * 34300) / 2
-    return distance
-
-
 def get_distances(offsets):
-    gpio_trigger_list = ULTRASONIC_SENSOR_LISTS.get("trigger_pins")
-    gpio_echo_list = ULTRASONIC_SENSOR_LISTS.get("echo_pins")
-    dist_raw = []
-    dist_list = []
+    trigger_list = ULTRASONIC_SENSOR_LISTS.get("trigger_pins")
+    echo_list = ULTRASONIC_SENSOR_LISTS.get("echo_pins")
+    dist_list = np.zeros((NUMBER_OF_SENSORS, NUMBER_OF_SENSORS))
 
-    for k in range(0, len(gpio_trigger_list)):
-        trigger = int(gpio_trigger_list[k])
-        echo = int(gpio_echo_list[k])
-        dist_raw[k] = round(distance(trigger, echo), 1)
-        dist_list[k] = dist_raw[k] - offsets[k%3]
+    for num in range(0, NUMBER_OF_SENSORS):
+        sensor[num] = UltrasonicSensor(trigger_list[i], echo_list[i])
+
+    for k in range(0, NUMBER_OF_SENSORS):
+        for i in range(0, NUMBER_OF_SENSORS):
+            dist_raw = round(sensor[i].distance(), 1)
+            dist_list[k,i] = dist_raw - offsets[i]
+
+    dist_list = np.median(dist_list, 0)
     return dist_list
 
 # Helper function for computing orientation of robot
@@ -110,8 +90,6 @@ def find_orientation(distance):
     :param ROBOT_LENGTH: distance in cm from front right to back right sensor
     :return: angle of drift from straight trajectory
     '''
-    # print('distance[0]=', distance[0])
-    # print('distance[1]=', distance[1])
     theta = np.arctan2((distance[0]-distance[1]), ROBOT_LENGTH) * 180 / np.pi
     return theta
 
@@ -283,7 +261,7 @@ class SpeciesPage(QWidget):
             sheet.cell(row=current_count+2, column=2).value = ''
             sheet.cell(row=current_count+2, column=3).value = ''
         workbook.save(SPECIES_SHEET)
-        os.system("python sheetupdateSpecies.py")
+        os.system("python support/sheetupdateSpecies.py")
         threading.Thread(target=backup_sheet).start()
 
         page = ImagesPage()
@@ -296,17 +274,18 @@ class SpeciesPage(QWidget):
 
 def backup_sheet():
     # create a copy of the sheet
-    shutil.copy("SpeciesSheet.xlsx", "new.xlsx")
+    new_sheet = "support/new.xlsx"
+    shutil.copy("SpeciesSheet.xlsx", new_sheet)
 
     # delete the images column
-    workbook = openpyxl.load_workbook('new.xlsx')
+    workbook = openpyxl.load_workbook(new_sheet)
     sheet = workbook.active
     sheet.delete_cols(3, 1)
-    workbook.save('new.xlsx')
+    workbook.save(new_sheet)
 
     # include date in file name
     today = datetime.datetime.today().strftime('%d-%b-%Y')
-    os.rename(r'new.xlsx', r'SpeciesSheet_' + STATE + str(today) + '.xlsx')
+    os.rename(r'support/new.xlsx', r'support/SpeciesSheet_' + STATE + str(today) + '.xlsx')
 
 
 # window class used to update the number of images per row
@@ -379,7 +358,7 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            os.system("python sheetupdatePictures.py")
+            os.system("support/python sheetupdatePictures.py")
             confirm_dialog.done(1)
             page = AcquisitionPage()
             main_window.addWidget(page)
@@ -425,19 +404,15 @@ class AcquisitionPage(QWidget):
 
     def configure_machine_motion(self):
         # config machine motion
-        self.mm.configAxis(
-            self.camera_motor, MICRO_STEPS.ustep_8, MECH_GAIN.ballscrew_10mm_turn)
-        self.mm.configAxisDirection(
-            self.camera_motor, DIRECTION.POSITIVE)
+        self.mm.configAxis(self.camera_motor, MICRO_STEPS.ustep_8, MECH_GAIN.ballscrew_10mm_turn)
+        self.mm.configAxisDirection(self.camera_motor, DIRECTION.POSITIVE)
 
-        # for axis in WHEEL_MOTORS:
-        #     self.mm.configAxis(
-        #         axis, MICRO_STEPS.ustep_8, MECH_GAIN.enclosed_timing_belt_mm_turn)
-        #     self.mm.configAxisDirection(axis, DIRECTIONS[axis-2])
+        for axis in WHEEL_MOTORS:
+            self.mm.configAxis(axis, MICRO_STEPS.ustep_8, MECH_GAIN.enclosed_timing_belt_mm_turn)
+            self.mm.configAxisDirection(axis, DIRECTIONS[axis-2])
 
         self.mm.emitAcceleration(50)
         self.mm.emitSpeed(80)
-        print('Machine Motion Configured')
 
     def correct_path(self):
         corrected_distance = get_distances(offsets)
@@ -447,23 +422,17 @@ class AcquisitionPage(QWidget):
 
         # Getting angle
         ang = find_orientation(corrected_distance)
-        # print('debug_angle=', ang)
 
         # Calculate how much distance motor needs to move to align platform
         d_correction_mm = 2*np.pi*ROBOT_WIDTH*(abs(ang)/360)*10
-        # print('debug_d_correction_mm=', d_correction_mm)
 
         # Create if statement to indicate which motor moves
         if ang > 0.5:
-            # self.mm.moveRelative(
-            #     WHEEL_MOTORS[0], d_correction_mm)
-            # self.mm.waitForMotionCompletion()
-            print('move left')
+            self.mm.moveRelative(WHEEL_MOTORS[0], d_correction_mm)
+            self.mm.waitForMotionCompletion()
         elif ang < -0.5:
-            # self.mm.moveRelative(
-            #     WHEEL_MOTORS[1], d_correction_mm)
-            # self.mm.waitForMotionCompletion()
-            print('move right')
+            self.mm.moveRelative(WHEEL_MOTORS[1], d_correction_mm)
+            self.mm.waitForMotionCompletion()
 
     def generate_pots(self):
         images_df = pd.read_excel(IMAGES_SHEET)
@@ -510,8 +479,8 @@ class AcquisitionPage(QWidget):
             if j == 0 or j == 1:
                 if STOP_EXEC:
                     break
-                # self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
-                # self.mm.waitForMotionCompletion()
+                self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
+                self.mm.waitForMotionCompletion()
             else:
                 # total distance between home and end sensor
                 total_distance = int(HOME_TO_END_SENSOR_DISTANCE/(j-1))
@@ -539,8 +508,8 @@ class AcquisitionPage(QWidget):
                 time.sleep(10)
                 threading.Thread(target=file_rename()).start()
 
-                # self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
-                # self.mm.waitForMotionCompletion()
+                self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
+                self.mm.waitForMotionCompletion()
 
         if STOP_EXEC:
             self.stop()
@@ -577,7 +546,7 @@ def file_rename():
     time.sleep(2)
     t = str(int(time.time()))
     for file_name in os.listdir('.'):
-        if file_name.startswith(STATE+'A'):
+        if file_name.startswith(STATE+'X'):
             if file_name.endswith('.JPG'):
                 new_name = f"{STATE}_{t}.JPG"
             elif file_name.endswith('.ARW'):
