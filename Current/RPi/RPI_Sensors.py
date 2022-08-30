@@ -1,3 +1,4 @@
+# Ultrasonic object file for creating USsensor objects and getting distance from them
 import RPi.GPIO as GPIO
 import time
 

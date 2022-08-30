@@ -14,8 +14,8 @@ import select
 from dotenv import load_dotenv
 import RPi.GPIO as GPIO
 
-# from MachineMotion import *
-# sys.path.append("..")
+from support.MachineMotion import *
+sys.path.append("..")
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import *
@@ -395,10 +395,10 @@ class AcquisitionPage(QWidget):
         super().__init__()
 
         # Initialize the machine motion object
-        # self.mm = MachineMotion(DEFAULT_IP)
-        # self.mm.releaseEstop()
-        # self.mm.resetSystem()
-        # self.camera_motor = 1
+        self.mm = MachineMotion(DEFAULT_IP)
+        self.mm.releaseEstop()
+        self.mm.resetSystem()
+        self.camera_motor = 1
 
         self.acquisition_label = QLabel("Image Acquisition Process Started")
         self.time_label = QLabel("     Time Elapsed: 0 hrs 0 mins")
@@ -425,18 +425,18 @@ class AcquisitionPage(QWidget):
 
     def configure_machine_motion(self):
         # config machine motion
-        # self.mm.configAxis(
-        #     self.camera_motor, MICRO_STEPS.ustep_8, MECH_GAIN.ballscrew_10mm_turn)
-        # self.mm.configAxisDirection(
-        #     self.camera_motor, DIRECTION.POSITIVE)
+        self.mm.configAxis(
+            self.camera_motor, MICRO_STEPS.ustep_8, MECH_GAIN.ballscrew_10mm_turn)
+        self.mm.configAxisDirection(
+            self.camera_motor, DIRECTION.POSITIVE)
 
         # for axis in WHEEL_MOTORS:
         #     self.mm.configAxis(
         #         axis, MICRO_STEPS.ustep_8, MECH_GAIN.enclosed_timing_belt_mm_turn)
         #     self.mm.configAxisDirection(axis, DIRECTIONS[axis-2])
 
-        # self.mm.emitAcceleration(50)
-        # self.mm.emitSpeed(80)
+        self.mm.emitAcceleration(50)
+        self.mm.emitSpeed(80)
         print('Machine Motion Configured')
 
     def correct_path(self):
@@ -476,9 +476,9 @@ class AcquisitionPage(QWidget):
     def process_finished(self):
         global PROCESS_COMPLETE
         PROCESS_COMPLETE = True
-        # self.mm.moveToHome(self.camera_motor)
-        # self.mm.waitForMotionCompletion()
-        # self.mm.triggerEstop()
+        self.mm.moveToHome(self.camera_motor)
+        self.mm.waitForMotionCompletion()
+        self.mm.triggerEstop()
         self.acquisition_label.setText('Acquisition Process Complete')
         current_time = time.time()
         elapsed_time = int(current_time-self.start_time)
@@ -529,8 +529,8 @@ class AcquisitionPage(QWidget):
                     os.system(path)
                     time.sleep(10)
                     # Move camera plate to next point
-                    # self.mm.moveRelative(self.camera_motor, total_distance)
-                    # self.mm.waitForMotionCompletion()
+                    self.mm.moveRelative(self.camera_motor, total_distance)
+                    self.mm.waitForMotionCompletion()
                     threading.Thread(target=file_rename()).start()
                 if STOP_EXEC:
                     break
@@ -554,9 +554,9 @@ class AcquisitionPage(QWidget):
     def stop(self):
         global STOP_EXEC
         STOP_EXEC = True
-        # self.mm.moveToHome(self.camera_motor)
-        # self.mm.waitForMotionCompletion()
-        # self.mm.triggerEstop()
+        self.mm.moveToHome(self.camera_motor)
+        self.mm.waitForMotionCompletion()
+        self.mm.triggerEstop()
         if not PROCESS_COMPLETE:
             self.acquisition_label.setText('Acquisition Process Disrupted')
             self.time_label.setText('     Close the Application')
