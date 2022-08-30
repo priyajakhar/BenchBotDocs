@@ -10,7 +10,6 @@ import datetime
 import json
 import numpy as np
 from datetime import date
-import select
 from dotenv import load_dotenv
 
 from support.MachineMotion import *
@@ -68,9 +67,10 @@ def get_distances(offsets):
     trigger_list = ULTRASONIC_SENSOR_LISTS.get("trigger_pins")
     echo_list = ULTRASONIC_SENSOR_LISTS.get("echo_pins")
     dist_list = np.zeros((NUMBER_OF_SENSORS, NUMBER_OF_SENSORS))
+    sensor = []
 
     for num in range(0, NUMBER_OF_SENSORS):
-        sensor[num] = UltrasonicSensor(trigger_list[i], echo_list[i])
+        sensor.append(UltrasonicSensor(trigger_list[num], echo_list[num]))
 
     for k in range(0, NUMBER_OF_SENSORS):
         for i in range(0, NUMBER_OF_SENSORS):
@@ -358,7 +358,7 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            os.system("support/python sheetupdatePictures.py")
+            os.system("python support/sheetupdatePictures.py")
             confirm_dialog.done(1)
             page = AcquisitionPage()
             main_window.addWidget(page)
