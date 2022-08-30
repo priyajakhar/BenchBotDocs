@@ -12,9 +12,10 @@ import numpy as np
 from datetime import date
 from dotenv import load_dotenv
 
-from support.MachineMotion import *
+sys.path.append('support')
+from MachineMotion import *
 sys.path.append("..")
-from support.RPI_Sensors import *
+from RPI_Sensors import *
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import *
