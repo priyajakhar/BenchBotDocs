@@ -628,13 +628,13 @@ class AcquisitionPage(QWidget):
             return False
 
     def move_files(self):
-        sony_folder = os.getcwd()+'\\OAK'
-        oak_folder = os.getcwd()+'\\SONY'
+        oak_folder = os.getcwd()+'\\OAK'
+        sony_folder = os.getcwd()+'\\SONY'
         for file in os.listdir('.'):
-            if file.endswith('.JPG') or file.endswith('.ARW'):
-                shutil.move(file, sony_folder)
-            elif file.endswith('.jpg'):
+            if file.startswith(STATE+'_OAK'):
                 shutil.move(file, oak_folder)
+            elif file.startswith(STATE):
+                shutil.move(file, sony_folder)
             else:
                 continue
 
