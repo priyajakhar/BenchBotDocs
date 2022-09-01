@@ -320,10 +320,8 @@ def backup_sheet():
 
     # include date in file name
     current_date = datetime.datetime.today().strftime('%d-%b-%Y')
-    # new_name = os.path.join(support_dir, f"SpeciesSheet_{STATE}_{current_date}.xlsx")
     new_name = support_dir / f"SpeciesSheet_{STATE}_{current_date}.xlsx"
     os.rename(new_sheet, new_name)
-    # os.rename(r'support\new.xlsx', r'support\SpeciesSheet_' + STATE + str(current_date) + '.xlsx')
     
 
 # window class used to update the number of images per row
