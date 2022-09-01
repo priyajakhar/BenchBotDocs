@@ -294,13 +294,7 @@ class SpeciesPage(QWidget):
             sheet.cell(row=current_count+2, column=2).value = ''
             sheet.cell(row=current_count+2, column=3).value = ''
         workbook.save(SPECIES_SHEET)
-        # sheet_script = os.path.join(support_dir, "sheetupdateSpecies.py")
-        # sheet_script = support_dir / "sheetupdateSpecies.py"
-        # call(["python3", sheet_script])
-
         call(["python3", support_dir / "sheetupdateSpecies.py"])
-
-
         # time.sleep(0.1)
         threading.Thread(target=backup_sheet).start()
 
@@ -404,8 +398,6 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            # image_script = os.path.join(support_dir, "sheetupdatePictures.py")
-            # call(["python3", image_script])
             call(["python3", support_dir / "sheetupdatePictures.py"])
             confirm_dialog.done(1)
             page = AcquisitionPage()
