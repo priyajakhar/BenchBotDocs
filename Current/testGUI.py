@@ -12,6 +12,7 @@ import datetime
 import cv2
 import depthai as dai
 import numpy as np
+from pathlib import Path
 from datetime import date
 from dotenv import load_dotenv
 from subprocess import call
@@ -64,12 +65,16 @@ PROCESS_COMPLETE = False
 # global flag to store the state
 STATE = ""
 # name of species sheet file
-support_dir = "support"
-SPECIES_SHEET = os.path.join(support_dir, "SpeciesSheet.xlsx")
+# support_dir = "support"
+# SPECIES_SHEET = os.path.join(support_dir, "SpeciesSheet.xlsx")
+support_dir = Path("support")
+SPECIES_SHEET = support_dir / "SpeciesSheet.xlsx"
 # name of images sheet file
-IMAGES_SHEET = os.path.join(support_dir, "ImagesSheet.xlsx")
+# IMAGES_SHEET = os.path.join(support_dir, "ImagesSheet.xlsx")
+IMAGES_SHEET = support_dir / "ImagesSheet.xlsx"
 # path of the camera script
-PATH = os.path.join(os.getcwd(),"support","RemoteCli","RemoteCli.exe")
+# PATH = os.path.join(os.getcwd(),"support","RemoteCli","RemoteCli.exe")
+CAM_PATH = os.getcwd() / support_dir / "RemoteCli" / "RemoteCli.exe"
 
 ############################### Ultrasonic sensors and laptop-pi communication functions ###############################
 
@@ -88,7 +93,8 @@ def find_orientation(distance):
 
 # LOADING OFFSETS
 
-csv_file = os.path.join(support_dir, "SensorOffsets.csv")
+# csv_file = os.path.join(support_dir, "SensorOffsets.csv")
+csv_file = support_dir / "SensorOffsets.csv"
 offsets = np.loadtxt(csv_file, delimiter=',', skiprows=1)
 
 ########################### OAK-D Funcs ###########################
@@ -288,8 +294,13 @@ class SpeciesPage(QWidget):
             sheet.cell(row=current_count+2, column=2).value = ''
             sheet.cell(row=current_count+2, column=3).value = ''
         workbook.save(SPECIES_SHEET)
-        sheet_script = os.path.join(support_dir, "sheetupdateSpecies.py")
-        call(["python3", sheet_script])
+        # sheet_script = os.path.join(support_dir, "sheetupdateSpecies.py")
+        # sheet_script = support_dir / "sheetupdateSpecies.py"
+        # call(["python3", sheet_script])
+
+        call(["python3", support_dir / "sheetupdateSpecies.py"])
+
+
         # time.sleep(0.1)
         threading.Thread(target=backup_sheet).start()
 
@@ -303,7 +314,8 @@ class SpeciesPage(QWidget):
 
 def backup_sheet():
     # create a copy of the sheet
-    new_sheet = os.path.join(support_dir, "new.xlsx")
+    # new_sheet = os.path.join(support_dir, "new.xlsx")
+    new_sheet = support_dir / "new.xlsx"
     shutil.copy(SPECIES_SHEET, new_sheet)
     
     # delete the images column
@@ -314,7 +326,8 @@ def backup_sheet():
 
     # include date in file name
     current_date = datetime.datetime.today().strftime('%d-%b-%Y')
-    new_name = os.path.join(support_dir, f"SpeciesSheet_{STATE}_{current_date}.xlsx")
+    # new_name = os.path.join(support_dir, f"SpeciesSheet_{STATE}_{current_date}.xlsx")
+    new_name = support_dir / f"SpeciesSheet_{STATE}_{current_date}.xlsx"
     os.rename(new_sheet, new_name)
     # os.rename(r'support\new.xlsx', r'support\SpeciesSheet_' + STATE + str(current_date) + '.xlsx')
     
@@ -391,8 +404,9 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            image_script = os.path.join(support_dir, "sheetupdatePictures.py")
-            call(["python3", image_script])
+            # image_script = os.path.join(support_dir, "sheetupdatePictures.py")
+            # call(["python3", image_script])
+            call(["python3", support_dir / "sheetupdatePictures.py"])
             confirm_dialog.done(1)
             page = AcquisitionPage()
             main_window.addWidget(page)
@@ -464,14 +478,10 @@ class AcquisitionPage(QWidget):
         # Create new directory where today's images will be saved.
         directory_name = f'{STATE}_{date.today()}'
         if directory_name not in os.listdir():
-            #os.mkdir(f'{os.getcwd()}\{directory_name}')
             os.mkdir(directory_name)
-        #os.chdir(f'{os.getcwd()}\{directory_name}')
         os.chdir(directory_name)
-        # os.mkdir(f'{os.getcwd()}\OAK')
-        # os.mkdir(f'{os.getcwd()}\SONY')
-        os.mkdir(os.path.join(os.getcwd(), "OAK"))
-        os.mkdir(os.path.join(os.getcwd(), "SONY"))
+        os.mkdir("OAK")
+        os.mkdir("SONY")
 
     def correct_path(self):
         corrected_distance = get_distances(offsets)
@@ -496,21 +506,20 @@ class AcquisitionPage(QWidget):
     
     def capture_image(self):
         t = str(int(time.time()))
-        os.startfile(PATH)
+        os.startfile(CAM_PATH)
         save_oak_image(t)
         # time.sleep(8)
         threading.Thread(target=self.file_rename(t)).start()
     
     def file_rename(self, timestamp):
         time.sleep(4)
-        # t = str(int(time.time()))
         for file_name in os.listdir('.'):
             if file_name.startswith(STATE+'X'):
                 if file_name.endswith('.JPG'):
                     new_name = f"{STATE}_{timestamp}.JPG"
                 elif file_name.endswith('.ARW'):
                     new_name = f"{STATE}_{timestamp}.ARW"
-                os.rename(f"{file_name}", f"{new_name}")
+                os.rename(file_name, new_name)
             else:
                 continue
 
@@ -562,7 +571,9 @@ class AcquisitionPage(QWidget):
             # Move camera plate to next point
             self.mm.moveRelative(self.camera_motor, distance)
             self.mm.waitForMotionCompletion()
-        # Trigger image capture at last point            
+        # Trigger image capture at last point 
+        if STOP_EXEC:
+            return          
         self.capture_image()
 
     ##### change logic for repeating rounds
@@ -578,22 +589,11 @@ class AcquisitionPage(QWidget):
             return False
 
     def move_files(self):
-        # oak_folder = os.getcwd()+'\\OAK'
-        # sony_folder = os.getcwd()+'\\SONY'
-
-        oak_folder = os.path.join(os.getcwd(), "OAK")
-        sony_folder = os.path.join(os.getcwd(), "SONY")
-
-        # oak_folder = os.path.join("OAK")
-        # sony_folder = os.path.join("SONY")
-
         for file in os.listdir('.'):
-            # if file.endswith('.JPG') or file.endswith('.ARW'):
             if file.startswith(STATE+'_OAK'):
-                shutil.move(file, oak_folder)
-            # elif file.endswith('.jpg'):
+                shutil.move(file, "OAK")
             elif file.startswith(STATE):
-                shutil.move(file, sony_folder)
+                shutil.move(file, "SONY")
             else:
                 continue
 
