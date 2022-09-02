@@ -104,7 +104,7 @@ def flushframes():
 
 def save_oak_image(timestamp):
   flushframes()
-  filename = f"{STATE}_OAK_{timestamp}.jpg"
+  filename = f"{STATE}_OAK_{timestamp}.png"
   frame = queue.get()
   imOut = frame.getCvFrame()
   cv2.imwrite(filename, imOut)
@@ -294,7 +294,7 @@ class SpeciesPage(QWidget):
             sheet.cell(row=current_count+2, column=2).value = ''
             sheet.cell(row=current_count+2, column=3).value = ''
         workbook.save(SPECIES_SHEET)
-        call(["python3", support_dir / "sheetupdateSpecies.py"])
+        call(["python", support_dir / "sheetupdateSpecies.py"])
         # time.sleep(0.1)
         threading.Thread(target=backup_sheet).start()
 
@@ -396,7 +396,7 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            call(["python3", support_dir / "sheetupdatePictures.py"])
+            call(["python", support_dir / "sheetupdatePictures.py"])
             confirm_dialog.done(1)
             page = AcquisitionPage()
             main_window.addWidget(page)
@@ -470,8 +470,10 @@ class AcquisitionPage(QWidget):
         if directory_name not in os.listdir():
             os.mkdir(directory_name)
         os.chdir(directory_name)
-        os.mkdir("OAK")
-        os.mkdir("SONY")
+        if "OAK" not in os.listdir():
+            os.mkdir("OAK")
+        if "SONY" not in os.listdir():
+            os.mkdir("SONY")
 
     def correct_path(self):
         corrected_distance = get_distances(offsets)
@@ -498,13 +500,13 @@ class AcquisitionPage(QWidget):
         t = str(int(time.time()))
         os.startfile(CAM_PATH)
         save_oak_image(t)
-        # time.sleep(8)
+        time.sleep(8)
         threading.Thread(target=self.file_rename(t)).start()
     
     def file_rename(self, timestamp):
         time.sleep(4)
         for file_name in os.listdir('.'):
-            if file_name.startswith(STATE+'X'):
+            if file_name.startswith(STATE+'A'):
                 if file_name.endswith('.JPG'):
                     new_name = f"{STATE}_{timestamp}.JPG"
                 elif file_name.endswith('.ARW'):
