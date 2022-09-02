@@ -1,4 +1,4 @@
-# testfile for latest changes
+# testfile for me to mess up
 
 import os
 import sys
@@ -552,31 +552,16 @@ class AcquisitionPage(QWidget):
             self.time_label.setText(
                 '     Time Elapsed: '+str(elapsed_hr) + ' hrs '+str(elapsed_min) + ' mins')
 
-    def round(self, pots, distance):
-        for i in range(1, pots):
-            if STOP_EXEC:
-                break
-            # Trigger capture of image
-            self.capture_image()
-            # Move camera plate to next point
-            self.mm.moveRelative(self.camera_motor, distance)
-            self.mm.waitForMotionCompletion()
-        # Trigger image capture at last point 
-        if STOP_EXEC:
-            return          
-        self.capture_image()
-
     ##### change logic for repeating rounds
-    def repeat_round(self, expected_count):
+    def check_miss(self, expected_count):
         filelist = [name for name in os.listdir('.') if os.path.isfile(name)]
         actual_count = len(filelist)
         if ((expected_count*3)>actual_count):
-            # scrub directory of the files
-            for file in filelist:
-                os.remove(file)            
-            return True
+            # somehow return the stop number of missed image  
+            stop_no=9
+            return stop_no
         else:
-            return False
+            return -1
 
     def move_files(self):
         for file in os.listdir('.'):
@@ -604,18 +589,48 @@ class AcquisitionPage(QWidget):
             else:
                 # total distance between home and end sensor
                 total_distance = int(HOME_TO_END_SENSOR_DISTANCE/(pots-1))
-
                 if not direction:
                     total_distance *= -1
-                self.round(pots, total_distance)
 
-                if self.repeat_round(pots):
+                # capture images in a row
+                for i in range(1, pots):
+                    if STOP_EXEC:
+                        break
+                    self.capture_image()
+                    self.mm.moveRelative(self.camera_motor, total_distance)
+                    self.mm.waitForMotionCompletion()
+                if STOP_EXEC:
+                    break         
+                self.capture_image()
+
+
+
+
+                
+                # check if any images were missed and if so, take action
+                missed_img = self.check_miss(pots)
+
+                if missed_img != -1:
                     total_distance *= -1
                     direction = not direction
-                    self.round(pots, total_distance)
+                    new_distance = total_distance * missed_img   # missed_img can be 0,1,2,3 in case of 4 images per row so it varies between (0,pots-1)
+                    # move camera plate to missed image spot
+                    self.mm.moveRelative(self.camera_motor, new_distance)
+                    self.mm.waitForMotionCompletion()
+                    self.capture_image()
+
+                    # move camera plate to one of the ends
+                    dist = total_distance * (pots-1-missed_img)
+                    self.mm.moveRelative(self.camera_motor, dist)
+                    self.mm.waitForMotionCompletion()
                 
+
+
+
+                # move image files to respective folders
                 self.move_files()
 
+                # change direction of camera plate movement
                 direction = not direction
                 # self.mm.moveRelativeCombined(WHEEL_MOTORS, [DISTANCE_TRAVELED, DISTANCE_TRAVELED])
                 # self.mm.waitForMotionCompletion()
@@ -624,7 +639,6 @@ class AcquisitionPage(QWidget):
             self.stop()
         else:
             self.process_finished()
-
 
 
 if __name__ == "__main__":
