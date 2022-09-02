@@ -440,6 +440,7 @@ class AcquisitionPage(QWidget):
         self.timer.start(60000)  # every 1 min
 
         threading.Thread(target=self.acquisition_process).start()
+        self.img_taken = []
 
     def configure_machine_motion(self):
         # config machine motion
@@ -494,18 +495,19 @@ class AcquisitionPage(QWidget):
                 WHEEL_MOTORS[1], d_correction_mm)
             self.mm.waitForMotionCompletion()
     
-    def capture_image(self):
+    def capture_image(self, img_no):
         t = str(int(time.time()))
         os.startfile(CAM_PATH)
         save_oak_image(t)
         # time.sleep(8)
-        threading.Thread(target=self.file_rename(t)).start()
+        threading.Thread(target=self.file_rename(t, img_no)).start()
     
-    def file_rename(self, timestamp):
+    def file_rename(self, timestamp, img_num):
         time.sleep(4)
         for file_name in os.listdir('.'):
             if file_name.startswith(STATE+'X'):
                 if file_name.endswith('.JPG'):
+                    self.img_taken.append(img_num-1)
                     new_name = f"{STATE}_{timestamp}.JPG"
                 elif file_name.endswith('.ARW'):
                     new_name = f"{STATE}_{timestamp}.ARW"
@@ -557,9 +559,11 @@ class AcquisitionPage(QWidget):
         filelist = [name for name in os.listdir('.') if os.path.isfile(name)]
         actual_count = len(filelist)
         if ((expected_count*3)>actual_count):
-            # somehow return the stop number of missed image  
-            stop_no=9
-            return stop_no
+            # if expected_count is 4, image_taken list should have 0,1,2,3
+            # check for missing number to know the stop
+            for x in range(0,expected_count):
+                if x not in self.img_taken:
+                    return x
         else:
             return -1
 
@@ -580,6 +584,7 @@ class AcquisitionPage(QWidget):
         direction = True
 
         for pots in total_rows:
+            self.img_taken = []
             self.correct_path()
             if pots == 0 or pots == 1:
                 if STOP_EXEC:
@@ -596,12 +601,12 @@ class AcquisitionPage(QWidget):
                 for i in range(1, pots):
                     if STOP_EXEC:
                         break
-                    self.capture_image()
+                    self.capture_image(i)
                     self.mm.moveRelative(self.camera_motor, total_distance)
                     self.mm.waitForMotionCompletion()
                 if STOP_EXEC:
                     break         
-                self.capture_image()
+                self.capture_image(pots)
 
 
 
@@ -613,15 +618,14 @@ class AcquisitionPage(QWidget):
                 if missed_img != -1:
                     total_distance *= -1
                     direction = not direction
-                    new_distance = total_distance * missed_img   # missed_img can be 0,1,2,3 in case of 4 images per row so it varies between (0,pots-1)
+                    new_distance = total_distance * (pots-1-missed_img)   # missed_img can be 0,1,2,3 in case of 4 images per row so it varies between (0,pots-1)
                     # move camera plate to missed image spot
                     self.mm.moveRelative(self.camera_motor, new_distance)
                     self.mm.waitForMotionCompletion()
                     self.capture_image()
 
-                    # move camera plate to one of the ends
-                    dist = total_distance * (pots-1-missed_img)
-                    self.mm.moveRelative(self.camera_motor, dist)
+                    # move camera plate to one of the ends, need to work more on this logic
+                    self.mm.moveRelative(self.camera_motor, total_distance*missed_img)
                     self.mm.waitForMotionCompletion()
                 
 
