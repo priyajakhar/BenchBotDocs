@@ -1,3 +1,17 @@
+## getting count of files in a directory
+import fnmatch, os
+
+def list_files():
+    files = fnmatch.filter(os.listdir(dir_path), '*.*')
+    count = len(files)
+    print('File Count:', count)
+
+dir_path = os.getcwd()+'/images'
+os.chdir(dir_path)
+list_files()
+
+
+
 ## testing logic of row update algo
 rownums = '1,2,3,5-9'
 arr1 = rownums.split(',')
