@@ -86,11 +86,11 @@ bool CameraDevice::connect(SCRSDK::CrSdkControlMode openMode)
 bool CameraDevice::disconnect()
 {
     m_spontaneous_disconnection = true;
-    tout << "Disconnect from camera...\n";
+    //tout << "Disconnect from camera...\n";
     // auto disconnect_status = m_cr_lib->Disconnect(m_device_handle);
     auto disconnect_status = SDK::Disconnect(m_device_handle);
     if (CR_FAILED(disconnect_status)) {
-        tout << "Disconnect failed to initialize.\n";
+        //tout << "Disconnect failed to initialize.\n";
         return false;
     }
     return true;
@@ -98,12 +98,12 @@ bool CameraDevice::disconnect()
 
 bool CameraDevice::release()
 {
-    tout << "Release camera...\n";
+    //tout << "Release camera...\n";
     // auto finalize_status = m_cr_lib->FinalizeDevice(m_device_handle);
     auto finalize_status = SDK::ReleaseDevice(m_device_handle);
     m_device_handle = 0; // clear
     if (CR_FAILED(finalize_status)) {
-        tout << "Finalize device failed to initialize.\n";
+        //tout << "Finalize device failed to initialize.\n";
         return false;
     }
     return true;
@@ -171,7 +171,8 @@ void CameraDevice::af_shutter() const
         return;
     }
 	*/
-	std::this_thread::sleep_for(3s);
+	
+	std::this_thread::sleep_for(2.8s);
 	
     //tout << "S1 shooting...\n";
     //tout << "Shutter Halfpress down\n";
@@ -1760,15 +1761,15 @@ text CameraDevice::get_id()
 void CameraDevice::OnConnected(SDK::DeviceConnectionVersioin version)
 {
     m_connected.store(true);
-    text id(this->get_id());
-    tout << "Connected to " << m_info->GetModel() << " (" << id.data() << ")\n";
+    // text id(this->get_id());
+    // tout << "Connected to " << m_info->GetModel() << " (" << id.data() << ")\n";
 }
 
 void CameraDevice::OnDisconnected(CrInt32u error)
 {
     m_connected.store(false);
     text id(this->get_id());
-    tout << "Disconnected from " << m_info->GetModel() << " (" << id.data() << ")\n";
+    // tout << "Disconnected from " << m_info->GetModel() << " (" << id.data() << ")\n";
     if ((false == m_spontaneous_disconnection) && (SDK::CrSdkControlMode_ContentsTransfer == m_modeSDK))
     {
         tout << "Please input '0' to return to the TOP-MENU\n";
@@ -1788,7 +1789,7 @@ void CameraDevice::OnLvPropertyChanged()
 void CameraDevice::OnCompleteDownload(CrChar* filename)
 {
     text file(filename);
-    tout << "Complete download. File: " << file.data() << '\n';
+    //tout << "Complete download. File: " << file.data() << '\n';
 }
 
 void CameraDevice::OnNotifyContentsTransfer(CrInt32u notify, SDK::CrContentHandle contentHandle, CrChar* filename)

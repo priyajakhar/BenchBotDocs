@@ -28,18 +28,12 @@ int main()
         std::exit(EXIT_FAILURE);
     }
     typedef std::shared_ptr<cli::CameraDevice> CameraDevicePtr;
-    typedef std::vector<CameraDevicePtr> CameraDeviceList;
-    CameraDeviceList cameraList;
     auto* camera_info = camera_list->GetCameraObjectInfo(0);
     CameraDevicePtr camera = CameraDevicePtr(new cli::CameraDevice(1, nullptr, camera_info));
-    
 	camera->connect(SDK::CrSdkControlMode_Remote);
+	camera->af_shutter();
+	std::this_thread::sleep_for(5s);
 	
-	if (SDK::CrSdkControlMode_Remote == camera->get_sdkmode())
-	{
-		camera->af_shutter();
-		std::this_thread::sleep_for(5s);
-	}
 	camera->disconnect();
 	camera->release();
     SDK::Release();
