@@ -162,16 +162,19 @@ void CameraDevice::s1_shooting() const
 
 void CameraDevice::af_shutter() const
 {
-    text input;
+    /*
+	text input;
     tout << "Is the focus mode set to AF? (y/n): ";
     std::getline(tin, input);
     if (input != TEXT("y")) {
         tout << "Set the focus mode to AF\n";
         return;
     }
-
-    tout << "S1 shooting...\n";
-    tout << "Shutter Halfpress down\n";
+	*/
+	std::this_thread::sleep_for(3s);
+	
+    //tout << "S1 shooting...\n";
+    //tout << "Shutter Halfpress down\n";
     SDK::CrDeviceProperty prop;
     prop.SetCode(SDK::CrDevicePropertyCode::CrDeviceProperty_S1);
     prop.SetCurrentValue(SDK::CrLockIndicator::CrLockIndicator_Locked);
@@ -180,17 +183,17 @@ void CameraDevice::af_shutter() const
 
     // Wait, then send shutter down
     std::this_thread::sleep_for(500ms);
-    tout << "Shutter down\n";
+    //tout << "Shutter down\n";
     SDK::SendCommand(m_device_handle, SDK::CrCommandId::CrCommandId_Release, SDK::CrCommandParam::CrCommandParam_Down);
 
     // Wait, then send shutter up
     std::this_thread::sleep_for(35ms);
-    tout << "Shutter up\n";
+    //tout << "Shutter up\n";
     SDK::SendCommand(m_device_handle, SDK::CrCommandId::CrCommandId_Release, SDK::CrCommandParam::CrCommandParam_Up);
 
     // Wait, then send shutter up
     std::this_thread::sleep_for(1s);
-    tout << "Shutter Halfpress up\n";
+    //tout << "Shutter Halfpress up\n";
     prop.SetCurrentValue(SDK::CrLockIndicator::CrLockIndicator_Unlocked);
     SDK::SetDeviceProperty(m_device_handle, &prop);
 }
