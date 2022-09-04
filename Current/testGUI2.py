@@ -65,15 +65,11 @@ PROCESS_COMPLETE = False
 # global flag to store the state
 STATE = ""
 # name of species sheet file
-# support_dir = "support"
-# SPECIES_SHEET = os.path.join(support_dir, "SpeciesSheet.xlsx")
 support_dir = Path("support")
 SPECIES_SHEET = support_dir / "SpeciesSheet.xlsx"
 # name of images sheet file
-# IMAGES_SHEET = os.path.join(support_dir, "ImagesSheet.xlsx")
 IMAGES_SHEET = support_dir / "ImagesSheet.xlsx"
 # path of the camera script
-# PATH = os.path.join(os.getcwd(),"support","RemoteCli","RemoteCli.exe")
 CAM_PATH = os.getcwd() / support_dir / "RemoteCli" / "RemoteCli.exe"
 
 ############################### Ultrasonic sensors and laptop-pi communication functions ###############################
@@ -93,7 +89,6 @@ def find_orientation(distance):
 
 # LOADING OFFSETS
 
-# csv_file = os.path.join(support_dir, "SensorOffsets.csv")
 csv_file = support_dir / "SensorOffsets.csv"
 offsets = np.loadtxt(csv_file, delimiter=',', skiprows=1)
 
@@ -104,7 +99,7 @@ def flushframes():
 
 def save_oak_image(timestamp):
   flushframes()
-  filename = f"{STATE}_OAK_{timestamp}.jpg"
+  filename = f"{STATE}_OAK_{timestamp}.png"
   frame = queue.get()
   imOut = frame.getCvFrame()
   cv2.imwrite(filename, imOut)
@@ -120,7 +115,6 @@ xoutRgb.setStreamName("rgb")
 camRgb.preview.link(xoutRgb.input)
 device = dai.Device(pipeline)
 queue = device.getOutputQueue(name="rgb")
-# flushframes()
 
 ###################################################################
 
@@ -294,7 +288,7 @@ class SpeciesPage(QWidget):
             sheet.cell(row=current_count+2, column=2).value = ''
             sheet.cell(row=current_count+2, column=3).value = ''
         workbook.save(SPECIES_SHEET)
-        call(["python3", support_dir / "sheetupdateSpecies.py"])
+        call(["python", support_dir / "sheetupdateSpecies.py"])
         # time.sleep(0.1)
         threading.Thread(target=backup_sheet).start()
 
@@ -396,7 +390,7 @@ class ImagesPage(QWidget):
                 sheet.cell(
                     row=snap+2, column=3).value = self.snaps[snap].text()
             workbook.save(SPECIES_SHEET)
-            call(["python3", support_dir / "sheetupdatePictures.py"])
+            call(["python", support_dir / "sheetupdatePictures.py"])
             confirm_dialog.done(1)
             page = AcquisitionPage()
             main_window.addWidget(page)
@@ -471,8 +465,10 @@ class AcquisitionPage(QWidget):
         if directory_name not in os.listdir():
             os.mkdir(directory_name)
         os.chdir(directory_name)
-        os.mkdir("OAK")
-        os.mkdir("SONY")
+        if "OAK" not in os.listdir():
+            os.mkdir("OAK")
+        if "SONY" not in os.listdir():
+            os.mkdir("SONY")
 
     def correct_path(self):
         corrected_distance = get_distances(offsets)
@@ -495,26 +491,6 @@ class AcquisitionPage(QWidget):
                 WHEEL_MOTORS[1], d_correction_mm)
             self.mm.waitForMotionCompletion()
     
-    def capture_image(self, img_no):
-        t = str(int(time.time()))
-        os.startfile(CAM_PATH)
-        save_oak_image(t)
-        # time.sleep(8)
-        threading.Thread(target=self.file_rename(t, img_no)).start()
-    
-    def file_rename(self, timestamp, img_num):
-        time.sleep(4)
-        for file_name in os.listdir('.'):
-            if file_name.startswith(STATE+'X'):
-                if file_name.endswith('.JPG'):
-                    self.img_taken.append(img_num-1)
-                    new_name = f"{STATE}_{timestamp}.JPG"
-                elif file_name.endswith('.ARW'):
-                    new_name = f"{STATE}_{timestamp}.ARW"
-                os.rename(file_name, new_name)
-            else:
-                continue
-
     def process_finished(self):
         global PROCESS_COMPLETE
         PROCESS_COMPLETE = True
@@ -554,6 +530,28 @@ class AcquisitionPage(QWidget):
             self.time_label.setText(
                 '     Time Elapsed: '+str(elapsed_hr) + ' hrs '+str(elapsed_min) + ' mins')
 
+
+
+    def capture_image(self, img_no):
+        t = str(int(time.time()))
+        os.startfile(CAM_PATH)
+        save_oak_image(t)
+        # time.sleep(8)
+        threading.Thread(target=self.file_rename(t, img_no)).start()
+    
+    def file_rename(self, timestamp, img_num):
+        time.sleep(4)
+        for file_name in os.listdir('.'):
+            if file_name.startswith(STATE+'A'):
+                if file_name.endswith('.JPG'):
+                    self.img_taken.append(img_num-1)
+                    new_name = f"{STATE}_{timestamp}.JPG"
+                elif file_name.endswith('.ARW'):
+                    new_name = f"{STATE}_{timestamp}.ARW"
+                os.rename(file_name, new_name)
+            else:
+                continue
+
     ##### change logic for repeating rounds
     def check_miss(self, expected_count):
         filelist = [name for name in os.listdir('.') if os.path.isfile(name)]
@@ -564,8 +562,7 @@ class AcquisitionPage(QWidget):
             for x in range(0,expected_count):
                 if x not in self.img_taken:
                     return x
-        else:
-            return -1
+        return -1
 
     def move_files(self):
         for file in os.listdir('.'):
@@ -597,7 +594,7 @@ class AcquisitionPage(QWidget):
                 if not direction:
                     total_distance *= -1
 
-                # capture images in a row
+                # capture images in a row (original round)
                 for i in range(1, pots):
                     if STOP_EXEC:
                         break
@@ -624,6 +621,7 @@ class AcquisitionPage(QWidget):
                     self.mm.waitForMotionCompletion()
                     self.capture_image()
 
+                    
                     # move camera plate to one of the ends, need to work more on this logic
                     self.mm.moveRelative(self.camera_motor, total_distance*missed_img)
                     self.mm.waitForMotionCompletion()

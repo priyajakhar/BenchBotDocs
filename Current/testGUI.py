@@ -65,15 +65,11 @@ PROCESS_COMPLETE = False
 # global flag to store the state
 STATE = ""
 # name of species sheet file
-# support_dir = "support"
-# SPECIES_SHEET = os.path.join(support_dir, "SpeciesSheet.xlsx")
 support_dir = Path("support")
 SPECIES_SHEET = support_dir / "SpeciesSheet.xlsx"
 # name of images sheet file
-# IMAGES_SHEET = os.path.join(support_dir, "ImagesSheet.xlsx")
 IMAGES_SHEET = support_dir / "ImagesSheet.xlsx"
 # path of the camera script
-# PATH = os.path.join(os.getcwd(),"support","RemoteCli","RemoteCli.exe")
 CAM_PATH = os.getcwd() / support_dir / "RemoteCli" / "RemoteCli.exe"
 
 ############################### Ultrasonic sensors and laptop-pi communication functions ###############################
@@ -93,7 +89,6 @@ def find_orientation(distance):
 
 # LOADING OFFSETS
 
-# csv_file = os.path.join(support_dir, "SensorOffsets.csv")
 csv_file = support_dir / "SensorOffsets.csv"
 offsets = np.loadtxt(csv_file, delimiter=',', skiprows=1)
 
@@ -120,7 +115,6 @@ xoutRgb.setStreamName("rgb")
 camRgb.preview.link(xoutRgb.input)
 device = dai.Device(pipeline)
 queue = device.getOutputQueue(name="rgb")
-# flushframes()
 
 ###################################################################
 
