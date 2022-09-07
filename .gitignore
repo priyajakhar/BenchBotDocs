@@ -130,5 +130,5 @@ dmypy.json
 .DS_Store
 
 # for excel and csv sheets
-**.xlsx
-**.csv
+.xlsx
+.csv
