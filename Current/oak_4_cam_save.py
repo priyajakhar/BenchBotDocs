@@ -42,8 +42,12 @@ monoLeft.setBoardSocket(dai.CameraBoardSocket.LEFT)
 monoLeft.setResolution(dai.MonoCameraProperties.SensorResolution.THE_720_P)
 
 camRgb.setBoardSocket(dai.CameraBoardSocket.RGB)
+camRgb.setInterleaved(False)
 camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_4_K)
 camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.RGB)
+camRgb.initialControl.setSharpness(0)     # range: 0..4, default: 1
+camRgb.initialControl.setLumaDenoise(0)   # range: 0..4, default: 1
+camRgb.initialControl.setChromaDenoise(4) # range: 0..4, default: 1
 
 Depth.setDefaultProfilePreset(dai.node.StereoDepth.PresetMode.HIGH_DENSITY)
 Depth.initialConfig.setMedianFilter(dai.MedianFilter.KERNEL_7x7)
@@ -70,10 +74,7 @@ qDepth = device.getOutputQueue(name="disparity", maxSize=4, blocking=False)
 
 def flushframes(n):
   for i in range(n):
-    inRight = qRight.get()
-    inLeft = qLeft.get()
-    inRgb = qRGB.get()
-    inDepth = qDepth.get()
+    R, L, C, D = qRight.get(), qLeft.get(), qRGB.get(), qDepth.get()
 
 
 dirsetup()
@@ -81,8 +82,9 @@ flushframes(50)
 
 
 def captureImage():
-  flushframes(20)
   t = str(int(time.time()))
+  flushframes(20)
+  
   inRight = qRight.get()
   inLeft = qLeft.get()
   inRgb = qRGB.get()
@@ -90,10 +92,10 @@ def captureImage():
   dframe = inDepth.getFrame()
   dframe = (dframe * (255 / Depth.initialConfig.getMaxDisparity())).astype(np.uint8)
   
-  cv2.imwrite(f"{dirName}/Right_{t}.png", inRight.getFrame())
-  cv2.imwrite(f"{dirName}/Left_{t}.png", inLeft.getFrame())
+  cv2.imwrite(f"{dirName}/Right_{t}.jpeg", inRight.getFrame())
+  cv2.imwrite(f"{dirName}/Left_{t}.jpeg", inLeft.getFrame())
   cv2.imwrite(f"{dirName}/Depth_{t}.png", dframe)
-  cv2.imwrite(f"{colordirName}/Rgb_{t}.png", inRgb.getCvFrame())
+  cv2.imwrite(f"{colordirName}/Rgb_{t}.jpeg", inRgb.getCvFrame())
 
 ###################################################################
 
@@ -101,5 +103,5 @@ def captureImage():
 # Capture Images
 for i in range(2):
   print('Clicking picture....')
-  time.sleep(2)
+  time.sleep(1)
   captureImage()
