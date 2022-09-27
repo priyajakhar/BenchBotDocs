@@ -57,6 +57,10 @@ monoLeft.setResolution(dai.MonoCameraProperties.SensorResolution.THE_720_P)
 camRgb.setBoardSocket(dai.CameraBoardSocket.RGB)
 camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_12_MP)
 camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.RGB)
+camRgb.setInterleaved(False)
+camRgb.initialControl.setSharpness(0)     # range: 0..4, default: 1		
+camRgb.initialControl.setLumaDenoise(0)   # range: 0..4, default: 1		
+camRgb.initialControl.setChromaDenoise(4) # range: 0..4, default: 1
 
 Depth.setDefaultProfilePreset(dai.node.StereoDepth.PresetMode.HIGH_DENSITY)
 Depth.initialConfig.setMedianFilter(dai.MedianFilter.KERNEL_7x7)
@@ -97,16 +101,8 @@ qStill = device.getOutputQueue(name="still", maxSize=4, blocking=True)
 qControl = device.getInputQueue(name="control")
 
 def flushframes(n):
-    for i in range(n):
-        inRight = qRight.get()
-        inLeft = qLeft.get()
-        inRgb = qRGB.get()
-        inDepth = qDepth.get()
-
-
-dirsetup()
-flushframes(50)
-
+  for i in range(n):
+    R, L, C, D = qRight.get(), qLeft.get(), qRGB.get(), qDepth.get()
 
 def captureImage():
     #   flushframes(20)
@@ -116,6 +112,8 @@ def captureImage():
     ctrl = dai.CameraControl()
     ctrl.setCaptureStill(True)
     qControl.send(ctrl)
+    time.sleep(1)
+    inRgb = qRGB.get()
 
     inRight = qRight.get()
     inLeft = qLeft.get()
@@ -138,7 +136,10 @@ def captureImage():
 
 
 # Capture Images
+dirsetup()
+flushframes(20)
+
 for i in range(2):
     print('Clicking picture....')
-    time.sleep(2)
+    time.sleep(1)
     captureImage()
