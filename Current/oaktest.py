@@ -24,6 +24,8 @@ xoutLeft = pipeline.create(dai.node.XLinkOut)
 
 camRgb = pipeline.create(dai.node.ColorCamera)
 # camRgb.setPreviewSize(3840, 2160)
+resolution = (4056, 3040)
+camRgb.setResolution(getattr(dai.ColorCameraProperties.SensorResolution, resolution))
 xoutRgb = pipeline.create(dai.node.XLinkOut)
 
 Depth = pipeline.create(dai.node.StereoDepth)
@@ -38,13 +40,14 @@ xoutDepth.setStreamName("disparity")
 xin = pipeline.create(dai.node.XLinkIn)
 xin.setStreamName("control")
 
-videoEnc = pipeline.create(dai.node.VideoEncoder)
-videoEnc.setDefaultProfilePreset(1, dai.VideoEncoderProperties.Profile.MJPEG)
+# videoEnc = pipeline.create(dai.node.VideoEncoder)
+# videoEnc.setDefaultProfilePreset(1, dai.VideoEncoderProperties.Profile.H265_MAIN)
+videoEnc = pipeline.createVideoEncoder()
+videoEnc.setDefaultProfilePreset(resolution[0], resolution[1], camRgb.getFps(), dai.VideoEncoderProperties.Profile.H265_MAIN)
+
 
 xoutStill = pipeline.create(dai.node.XLinkOut)
 xoutStill.setStreamName("still")
-
-
 
 
 # Properties
@@ -71,7 +74,7 @@ Depth.setSubpixel(False)
 # Linking
 monoRight.out.link(xoutRight.input)
 monoLeft.out.link(xoutLeft.input)
-camRgb.preview.link(xoutRgb.input)
+# camRgb.preview.link(xoutRgb.input)
 
 monoRight.out.link(Depth.right)
 monoLeft.out.link(Depth.left)
@@ -86,8 +89,6 @@ videoEnc.bitstream.link(xoutStill.input)
 
 
 
-
-
 # Device setup
 device = dai.Device(pipeline)
 
@@ -96,48 +97,85 @@ qLeft = device.getOutputQueue(name="left", maxSize=4, blocking=False)
 qRGB = device.getOutputQueue(name="rgb", maxSize=4, blocking=False)
 qDepth = device.getOutputQueue(name="disparity", maxSize=4, blocking=False)
 
-
-qStill = device.getOutputQueue(name="still", maxSize=4, blocking=True)
+qStill = device.getOutputQueue(name="still", maxSize=30, blocking=True)
 qControl = device.getInputQueue(name="control")
 
 def flushframes(n):
   for i in range(n):
     R, L, C, D = qRight.get(), qLeft.get(), qRGB.get(), qDepth.get()
 
-def captureImage():
-    #   flushframes(20)
-    inRgb = qRGB.get()
-    t = str(int(time.time()))
-
+def get_still():
+    inRgb = qRGB.tryGet()
+    # for i in range(5):
+    #     inRgb = qRGB.get()
     ctrl = dai.CameraControl()
     ctrl.setCaptureStill(True)
     qControl.send(ctrl)
-    time.sleep(1)
-    inRgb = qRGB.get()
+    for i in range(5):
+        inRgb = qRGB.get()
 
+
+def captureImage():
+    get_still()
+    inRgb = qRGB.tryGet()
+
+    t = str(int(time.time()))
+    
     inRight = qRight.get()
     inLeft = qLeft.get()
-    
     inDepth = qDepth.get()
     dframe = inDepth.getFrame()
     dframe = (dframe * (255 / Depth.initialConfig.getMaxDisparity())).astype(np.uint8)
 
-    cv2.imwrite(f"{dirName}/Right_{t}.png", inRight.getFrame())
-    cv2.imwrite(f"{dirName}/Left_{t}.png", inLeft.getFrame())
-    cv2.imwrite(f"{dirName}/Depth_{t}.png", dframe)
+    cv2.imwrite(f"{dirName}/{t}_Right.png", inRight.getFrame())
+    cv2.imwrite(f"{dirName}/{t}_Left.png", inLeft.getFrame())
+    cv2.imwrite(f"{dirName}/{t}_Depth.png", dframe)
     #   cv2.imwrite(f"{colordirName}/Rgb_{t}.png", inRgb.getCvFrame())
 
     if qStill.has():
-        stillframe = qStill.get().getData()
+        # stillframe = qStill.get().getData()
         stillframe = qStill.get().getFrame()
-        cv2.imwrite(f"{colordirName}/Rgb_{t}.png", stillframe)
+        cv2.imwrite(f"{colordirName}/{t}_Rgb.png", stillframe)
 
 ###################################################################
 
 
+def manualExposure(expTimeMs, sensIso):
+    if expTimeMs <= 0: return
+    expTimeUs = int(round(expTimeMs * 1000))
+    MIN_ISO = 100
+    MAX_ISO = 1600
+    MIN_EXP_TIME_US = 1
+    MAX_EXP_TIME_US = 33000
+    assert(sensIso >= MIN_ISO)
+    assert(sensIso <= MAX_ISO)
+    assert(expTimeUs >= MIN_EXP_TIME_US)
+    assert(expTimeUs <= MAX_EXP_TIME_US)
+    assert(sensIso > 0)
+    ctrl = dai.CameraControl()
+    ctrl.setManualExposure(expTimeUs, sensIso)
+    qControl.send(ctrl)
+
+
+def manualFocus(focus):
+    if focus < 0: return
+    assert(focus >= 0 and focus <= 255)
+    ctrl = dai.CameraControl()
+    #ctrl.setAutoFocusMode(dai.RawCameraControl.AutoFocusMode.OFF)
+    ctrl.setManualFocus(focus)
+    qControl.send(ctrl)
+
+
+def set_fps_and_focus(fps):
+    camRgb.setFps(fps)
+    videoEnc.setFrameRate(fps)
+
+
+
+
 # Capture Images
 dirsetup()
-flushframes(20)
+flushframes(13)
 
 for i in range(2):
     print('Clicking picture....')
