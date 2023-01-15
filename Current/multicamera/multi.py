@@ -1,3 +1,4 @@
+# script like multithreading, but sequential only, try using this if multithreading example runs on jetson
 import cv2
 import depthai as dai
 import contextlib

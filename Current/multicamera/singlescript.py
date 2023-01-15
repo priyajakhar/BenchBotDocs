@@ -56,9 +56,15 @@ def startcollection(cam_id, cam_no):
     Depth.disparity.link(xoutDepth.input)
     init_disp = Depth.initialConfig.getMaxDisparity()
 
+    print('Working till', cam_no)
+
     # device = dai.Device(pipeline)
     cam = dai.DeviceInfo(cam_id) # MXID
     device = dai.Device(pipeline, cam)
+    print('Broke', cam_no)
+
+    device.setLogLevel(dai.LogLevel.INFO)
+    device.setLogOutputLevel(dai.LogLevel.INFO)
 
     qRGB = device.getOutputQueue(name="rgb", maxSize=1, blocking=False)
     qRight = device.getOutputQueue(name="right", maxSize=1, blocking=False)
@@ -70,7 +76,7 @@ def startcollection(cam_id, cam_no):
         # inRgb, inRight = qRGB.get(), qRight.get()
 
     i = 0
-    n = 2
+    n = 5
 
     while(i<n):
         print('Running', cam_no)

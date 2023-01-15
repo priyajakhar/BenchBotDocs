@@ -1,6 +1,5 @@
 import depthai as dai
 import threading
-from multiprocessing import Process
 import contextlib
 import cv2
 import time
@@ -51,15 +50,12 @@ with contextlib.ExitStack() as stack:
     threads = []
     for dev in device_infos:
         time.sleep(1) # Currently required due to XLink race issues
-        #thread = threading.Thread(target=worker, args=(dev, stack, queues))
-        #thread.start()
-        #threads.append(thread)
-        p = Process(target=worker, args=(dev, stack, queues))
-        p.start()
-        #p.join()
+        thread = threading.Thread(target=worker, args=(dev, stack, queues))
+        thread.start()
+        threads.append(thread)
 
-    #for t in threads:
-    #    t.join() # Wait for all threads to finish
+    for t in threads:
+        t.join() # Wait for all threads to finish
 
     while True:
         for name, queue in queues.items():
