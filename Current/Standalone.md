@@ -52,7 +52,7 @@
 | ------------- | ------------- | ------------- |
 | 15  | 25.8~28  | 20.7, 3.8 |
 | 3  | 5~6  | 4.7, 0.85 |	
-*had to use "disparity" because 16-bit depth is not encodeable
+> *had to use "disparity" because 16-bit depth is not encodeable
 
 
 
