@@ -13,6 +13,20 @@
 > "jumps between extremes only
 
 
+### LR (1280x800) encoded, Depth unencoded  SubP = T
+| FPS  | Bandwidth | CPU (LeonOS, LeonRT) |
+| ------------- | ------------- | ------------- |
+| 20 | 390~400  | 63.75, 9.5 |
+| 15  | 275~315"  | 45.5, 7.03 |
+| 10  | 190~225  | 30.6, 4.7 |
+| 5  | 75~115"  | 15.3, 2.4 |
+| 3  | 52~63  | 9.5, 1.5 |
+| 1  | 24~37  | 3.1~7.7*, 0.99 |
+> *lot of CPU variations
+
+> "jumps between extremes only
+
+
 
 ## LR + RGB
 

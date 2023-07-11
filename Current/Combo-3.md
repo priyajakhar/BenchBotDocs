@@ -26,3 +26,17 @@
 > 'various uncharacteristic up/down spikes
 
 > "jumps between extremes only
+
+
+### RGB (1024x1024) encoded, LR (1280x800) encoded, Depth (1280x800) SubP = T
+| FPS  | Bandwidth | CPU (LeonOS, LeonRT) |
+| ------------- | ------------- | ------------- |
+| 20 | 420~435  | 94.5, 21 |
+| 15  | 305~315  | 62.5, 11.8 |
+| 10  | 190~235  | 40, 8 |
+| 5  | 75~115"  | 20.5, 4.1 |
+| 3  | 55~65  | 12.3, 2.5 |
+| 1  | 24~39  | 4.9~8.5, 0.67~1.65* |	
+> *lot of CPU variations
+
+> "jumps between extremes only
