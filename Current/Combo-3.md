@@ -22,5 +22,7 @@
 | 3  | 75~115"  | 15.5, 2 |
 | 1  | 45~51  | 5.5~10.5, 0.8* |	
 > *lot of CPU variations
+
 > 'various uncharacteristic up/down spikes
+
 > "jumps between extremes only
