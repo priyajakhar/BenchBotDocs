@@ -10,7 +10,7 @@
 | 5  | 140~150  | 20, 1.65 |
 | 3  | 75~115"  | 12.5, 0.99 |
 | 1  | 47~62"  | 8.5, 0.7 |
-"jumps between extremes only
+> "jumps between extremes only
 
 
 
@@ -36,7 +36,7 @@
 | 5  | 70~79*  | 17.5, 1.75 |
 | 3  | 50~60  | 10.5, 1.05 |
 | 1  | 25~35  | 6.5, 0.6 |	
-*lots of 115 Mb spikes
+> *lots of 115 Mb spikes
 
 
 
@@ -62,8 +62,8 @@
 | 5  | 71~115"  | 18, 3 |
 | 3  | 51~55  | 11.5, 1.8 |
 | 1  | 25~35  | 7.5, 0.75* |	
-*lot of CPU variations
-"jumps between extremes only				
+> *lot of CPU variations
+> "jumps between extremes only				
 
 
 	
