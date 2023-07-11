@@ -63,6 +63,7 @@
 | 3  | 51~55  | 11.5, 1.8 |
 | 1  | 25~35  | 7.5, 0.75* |	
 > *lot of CPU variations
+
 > "jumps between extremes only				
 
 
