@@ -129,6 +129,5 @@ dmypy.json
 .pyre/
 .DS_Store
 .vs
-*.png
 *.jpg
 *.jpeg
