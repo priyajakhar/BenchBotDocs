@@ -17,4 +17,5 @@ Contains class definition for oak camera where the pipeline consists of RGB node
 
 ### test_OAK_Camera_seg.py
 Contains unit tests written for OAK_Camera_Seg
+
 -------
