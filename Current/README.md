@@ -1,6 +1,7 @@
 # Camera
 
 **OAK_Camera.py**
+---
 Contains class definition for oak camera where pipeline consists of RGB node, Left Right mono nodes and Depth node. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
 
 Method calls allow starting a camera, fetching specific frames and shutting down the camera.
