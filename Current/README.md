@@ -1,14 +1,14 @@
 # Camera
 
 ### OAK_Camera.py
-Contains class definition for oak camera where pipeline consists of RGB node, Left Right mono nodes and Depth node. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
+Contains class definition for oak camera where based on data in camera configuration file specific pipelines can be constructed for use. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
 
 Function calls allow starting a camera, fetching specific frames and shutting down the camera.
 
 > Example usage of the class is demonstrated in main.py.
 
 ***
-#### Usage:
+#### Class Usage:
 <br>
 
 * Initialize the Camera class object by passing the single parameter IP address of the camera you want to connect to.
@@ -42,22 +42,11 @@ if not camera.camera_ready():
 * If connection to the camera is successfully established, then various frames can be fetched as described below. The frames have pre-defined names, if wrong frame name is used then returned value would be 'None'. 
 *Frame names: 'rgb', 'left', 'right', 'depth', 'disparity', 'segmentation'*
 ```  
-# fetch rgb frames
 frame_rgb = camera.get_image('rgb')
-
-# fetch right mono frame
 frame_right = camera.get_image('right')
-
-# fetch left mono frame
 frame_left = camera.get_image('left')
-
-# fetch depth frame
 frame_depth = camera.get_image('depth')
-
-# fetch disparity frame
 frame_disparity = camera.get_image('disparity')
-
-# fetch segmentation model output
 frame_segmentation = camera.get_image('segmentation')
 ```
 <br>
@@ -68,7 +57,7 @@ camera.stop_camera()
 ```
 
 ***
-#### Other functions:
+#### Other class functions:
 <br>
 
 * This function can be used to get the expected frame rate of the camera and the actual frame rate in order to verify if there's an issue that's preventing the camera from running at expected FPS.
@@ -99,18 +88,12 @@ Contains unit tests written for OAK_Camera
 
 
 
-Pipeline
-Pipeline is a collection of nodes and links between them. This flow provides an extensive flexibility that users get for their OAK device. When pipeline object is passed to the Device object, pipeline gets serialized to JSON and sent to the OAK device via XLink.
+### Pipeline
+Pipeline is a collection of nodes and links between them. Create a pipeline, populate it with nodes, configure the nodes and link them together and then it can be loaded onto the Device (camera) and be started. The pipelines defined in cofiguration file are:
 
-Pipeline first steps
-To get DepthAI up and running, you have to create a pipeline, populate it with nodes, configure the nodes and link them together. After that, the pipeline can be loaded onto the Device and be started.
+#### data_pipeline
+<br><br><br><br><br>
 
 
-Specifying OpenVINO version
-When using a NN blob that was not compiled with the latest OpenVINO (that DepthAI supports), you have to specify the OpenVINO version of the pipeline. The reason behind this is that OpenVINO doesn’t provide version inside the blob.
-
-pipeline = depthai.Pipeline()
-# Set the correct version:
-pipeline.setOpenVINOVersion(depthai.OpenVINO.Version.VERSION_2021_4)
-Using multiple devices
-If user has multiple DepthAI devices, each device can run a different pipeline or the same pipeline (demo here). To use different pipeline for each device, you can create multiple pipelines and pass the desired pipeline to the desired device on initialization.
+#### segmentation_pipeline
+<br>
