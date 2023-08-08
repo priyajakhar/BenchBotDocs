@@ -4,6 +4,7 @@
 
 **OAK_Camera.py**
 > Contains class definition for oak camera where based on data in camera configuration file specific pipelines can be constructed for use. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
+
 > Example usage is demonstrated in main.py which shows how to start the camera, fetch specific frames and shut down the camera.
 
 **test_OAK_Camera.py**
@@ -60,9 +61,9 @@ frame_segmentation = camera.get_image('segmentation')
 ```
 camera.stop_camera()
 ```
+<br>
 
-***
-#### Other class functions:
+### Other class functions:
 <br>
 
 * This function can be used to get the expected frame rate of the camera and the actual frame rate in order to verify if there's an issue that's preventing the camera from running at expected FPS.
@@ -87,9 +88,9 @@ cpu_leonos, cpu_leonrt = camera.get_cpu_stats()
 ### Pipeline
 Pipeline is a collection of nodes and links between them. Create a pipeline, populate it with nodes, configure the nodes and link them together and then it can be loaded onto the Device (camera) and be started. The pipelines defined in cofiguration file are:
 
-#### data_pipeline
+#### Data Collection Pipeline
 <br><br><br><br><br>
 
 
-#### segmentation_pipeline
+#### Segmentation Pipeline
 <br>
