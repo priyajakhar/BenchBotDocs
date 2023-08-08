@@ -29,16 +29,17 @@ while not camera.camera_ready() and time.time() < ( timeout_start + 7 ):
 	time.sleep(1)
 ```
 <br>
+
 * In case of error, the program quits. 
 ```
 if not camera.camera_ready():
 	print("\nError: Couldn't connect to device!")
 	sys.exit()
 ```
+<br>
 
-
-If connection to the camera is successfully established, then various frames can be fetched as described below. The frames have pre-defined names, if wrong frame name is used then returned value would be 'None'. 
-> Frame names: 'rgb', 'left', 'right', 'depth', 'disparity', 'segmentation'
+* If connection to the camera is successfully established, then various frames can be fetched as described below. The frames have pre-defined names, if wrong frame name is used then returned value would be 'None'. 
+*Frame names: 'rgb', 'left', 'right', 'depth', 'disparity', 'segmentation'*
 ```  
 # fetch rgb frames
 frame_rgb = camera.get_image('rgb')
@@ -58,36 +59,36 @@ frame_disparity = camera.get_image('disparity')
 # fetch segmentation model output
 frame_segmentation = camera.get_image('segmentation')
 ```
+<br>
 
-
-Once the program is done, the camera connection can be closed using
+* Once the program is done, the camera connection can be closed using
 ```
 camera.stop_camera()
 ```
-
-
+<br>
 
 ***
 #### Other functions:
+<br>
 
-This function can be used to get the expected frame rate of the camera and the actual frame rate in order to verify if there's an issue that's preventing the camera from running at expected FPS.
+* This function can be used to get the expected frame rate of the camera and the actual frame rate in order to verify if there's an issue that's preventing the camera from running at expected FPS.
 ```
 expected_fps, actual_fps = camera.get_frame_rate()
 ```
+<br>
 
-
-This function can be used to get the exposure time (in ms) of incoming frames (currently it gives exposure time of RGB frame only). This can be used to verify if the upper limit of exposure time of frames is as expected.
+* This function can be used to get the exposure time (in ms) of incoming frames (currently it gives exposure time of RGB frame only). This can be used to verify if the upper limit of exposure time of frames is as expected.
 ```
 exp_time = camera.get_exposure_time()
 ```
+<br>
 
-
-This function can be used to get the average CPU usage in terms of %. The utilization is of the 2 LeonCPUs available on the camera.
-> LeonOS (CSS Leon CPU) and LeonRT (MSS Leon CPU)
+* This function can be used to get the average CPU usage in terms of %. The utilization is of the 2 LeonCPUs available on the camera.
+*LeonOS (CSS Leon CPU) and LeonRT (MSS Leon CPU)*
 ```
 cpu_leonos, cpu_leonrt = camera.get_cpu_stats()
 ```
-
+<br>
 
 ***
 ### test_OAK_Camera.py
