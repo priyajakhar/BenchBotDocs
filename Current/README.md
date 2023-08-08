@@ -8,21 +8,20 @@ Function calls allow starting a camera, fetching specific frames and shutting do
 > Example usage of the class is demonstrated in main.py.
 
 #### Usage:
-
-
-*Initialize the Camera class object by passing the single parameter IP address of the camera you want to connect to.
+<br><br>
+* Initialize the Camera class object by passing the single parameter IP address of the camera you want to connect to.
 ```
 camera = Camera("169.254.1.222")
 ```
 
 
-*Then use the below function to start the camera, which involves upload of firmware and pipeline with other assets (such as camera tuning blob, NN blob etc) 
+* Then use the below function to start the camera, which involves upload of firmware and pipeline with other assets (such as camera tuning blob, NN blob etc) 
 ```
 camera.run()
 ```
 
 
-*As the upload of pipeline takes some time and input/output queues need to be initialized before we can start receiving frames (queues are located on the host computer in RAM), we need to wait for the camera to be ready or timeout to occur in case there are any errors when connecting to the camera.
+* As the upload of pipeline takes some time and input/output queues need to be initialized before we can start receiving frames (queues are located on the host computer in RAM), we need to wait for the camera to be ready or timeout to occur in case there are any errors when connecting to the camera.
 ```
 timeout_start = time.time()
 while not camera.camera_ready() and time.time() < ( timeout_start + 7 ):
@@ -30,7 +29,7 @@ while not camera.camera_ready() and time.time() < ( timeout_start + 7 ):
 ```
 
 
-In case of error, the program quits. 
+* In case of error, the program quits. 
 ```
 if not camera.camera_ready():
 	print("\nError: Couldn't connect to device!")
