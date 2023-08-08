@@ -1,11 +1,12 @@
 # Camera
 
-#### Files
+#### Files 📁
 
 **OAK_Camera.py**
 > Contains class definition for oak camera where based on data in camera configuration file specific pipelines can be constructed for use. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
 
-> Example usage is demonstrated in main.py which shows how to start the camera, fetch specific frames and shut down the camera.
+**main.py**
+> Contains a simple example usage of OAK_Camera class to demonstrate how to start the camera, fetch specific frames and shut down the camera.
 
 **test_OAK_Camera.py**
 > Contains unit tests written for OAK_Camera class.
