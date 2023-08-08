@@ -8,18 +8,23 @@ Function calls allow starting a camera, fetching specific frames and shutting do
 > Example usage of the class is demonstrated in main.py.
 
 #### Usage:
-<br><br>
+<br>
 * Initialize the Camera class object by passing the single parameter IP address of the camera you want to connect to.
 ```
 camera = Camera("169.254.1.222")
 ```
-
-
+<html>
+<body>
+<p>camera = Camera("169.254.1.222")</p>
+</body>
+</html>
+<br>
 * Then use the below function to start the camera, which involves upload of firmware and pipeline with other assets (such as camera tuning blob, NN blob etc) 
-```
-camera.run()
-```
+>```
+>camera.run()
+>```
 
+***
 
 * As the upload of pipeline takes some time and input/output queues need to be initialized before we can start receiving frames (queues are located on the host computer in RAM), we need to wait for the camera to be ready or timeout to occur in case there are any errors when connecting to the camera.
 ```
