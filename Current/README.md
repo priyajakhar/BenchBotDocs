@@ -1,6 +1,6 @@
 # Camera
 
-#### Files 📁
+### Files 📁
 
 **OAK_Camera.py**
 > Contains class definition for oak camera where based on data in camera configuration file specific pipelines can be constructed for use. The module can be imported in other python scripts and an instance of the OAK_Camera class can be created.
