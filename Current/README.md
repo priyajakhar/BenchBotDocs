@@ -6,6 +6,7 @@ Contains class definition for oak camera where pipeline consists of RGB node, Le
 Function calls allow starting a camera, fetching specific frames and shutting down the camera.
 
 > Example usage of the class is demonstrated in main.py.
+
 ***
 #### Usage:
 <br>
@@ -65,7 +66,6 @@ frame_segmentation = camera.get_image('segmentation')
 ```
 camera.stop_camera()
 ```
-<br>
 
 ***
 #### Other functions:
@@ -88,7 +88,6 @@ exp_time = camera.get_exposure_time()
 ```
 cpu_leonos, cpu_leonrt = camera.get_cpu_stats()
 ```
-<br>
 
 ***
 ### test_OAK_Camera.py
