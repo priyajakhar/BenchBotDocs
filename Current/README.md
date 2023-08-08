@@ -6,34 +6,26 @@ Contains class definition for oak camera where pipeline consists of RGB node, Le
 Function calls allow starting a camera, fetching specific frames and shutting down the camera.
 
 > Example usage of the class is demonstrated in main.py.
-
+***
 #### Usage:
 <br>
 * Initialize the Camera class object by passing the single parameter IP address of the camera you want to connect to.
 ```
 camera = Camera("169.254.1.222")
 ```
-<html>
-<body>
-<p>camera = Camera("169.254.1.222")</p>
-</body>
-</html>
 <br>
 * Then use the below function to start the camera, which involves upload of firmware and pipeline with other assets (such as camera tuning blob, NN blob etc) 
->```
->camera.run()
->```
-
-***
-
+```
+camera.run()
+```
+<br>
 * As the upload of pipeline takes some time and input/output queues need to be initialized before we can start receiving frames (queues are located on the host computer in RAM), we need to wait for the camera to be ready or timeout to occur in case there are any errors when connecting to the camera.
 ```
 timeout_start = time.time()
 while not camera.camera_ready() and time.time() < ( timeout_start + 7 ):
 	time.sleep(1)
 ```
-
-
+<br>
 * In case of error, the program quits. 
 ```
 if not camera.camera_ready():
@@ -72,7 +64,7 @@ camera.stop_camera()
 
 
 
-
+***
 #### Other functions:
 
 This function can be used to get the expected frame rate of the camera and the actual frame rate in order to verify if there's an issue that's preventing the camera from running at expected FPS.
@@ -94,11 +86,11 @@ cpu_leonos, cpu_leonrt = camera.get_cpu_stats()
 ```
 
 
-
+***
 ### test_OAK_Camera.py
 Contains unit tests written for OAK_Camera
 
-
+***
 ### camera_config.yaml
 
 
