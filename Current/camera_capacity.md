@@ -10,6 +10,6 @@
 | LR 1280x800 encoded |  4.42*FPS + 4.75   |
 | Depth 1280x800 |  16.08*FPS + 11.39   |
 
-- Base bandwidth deduction when combining nodes is 1.42*FPS + 0.91
-- 2048x2048 resolution is 4x more pixels than 1024x1024, in conjunction the bandwidth utilization also becomes approx 4x.
-- 
+- Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91).
+- 2048x2048 resolution is 4x more pixels than 1024x1024, as such the bandwidth utilization also becomes approx 4x.
+- Encoding 1024x1024 RGB takes about 8x less bandwidth.
