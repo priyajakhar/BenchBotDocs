@@ -30,9 +30,8 @@ Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
 Base deduction when combining nodes is (-0.26*FPS + 1.78)
 
-Deduction for common component of Mono cameras when combining single node data of LR and Depth is:
-
- LR not encoded     0.01761 * (FPS * FPS) + 0.6511 * FPS + 2.192
- LR encoded		-0.01072 * (FPS * FPS) + 1.293 * FPS + 0.2007
+- Deduction for common component of Mono cameras when combining single node data of LR and Depth is:
+  - LR not encoded     0.01761 * (FPS * FPS) + 0.6511 * FPS + 2.192
+  - LR encoded		-0.01072 * (FPS * FPS) + 1.293 * FPS + 0.2007
 
 > These deduction had to be 2nd degree polynomials
