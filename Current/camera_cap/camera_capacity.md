@@ -11,7 +11,7 @@
 | LR 1280x800 encoded |  4.42*FPS + 4.75   |
 | Depth 1280x800 |  16.08*FPS + 11.39   |
 
-![](graphs/model_bw.png | width=280)
+![](graphs/model_bw.png =1000x280)
 
 Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
