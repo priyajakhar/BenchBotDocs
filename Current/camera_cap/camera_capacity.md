@@ -2,14 +2,16 @@
 
 ### Bandwidth
 
-| Node              | Bandwidth Utilization |	1
-| :---------------- | :------ | :------ |
-| RGB 1024x1024        |   13.25*FPS + 4.25   |	![model_bw_1](graphs/model_bw_1.png) |
-| RGB 2048x2048           |   40.63*FPS + 68.34   | |
-| RGB 1024x1024 encoded    |  1.94*FPS - 0.31   | |
-| LR 1280x800 |  16.5*FPS + 15.8   | |
-| LR 1280x800 encoded |  4.42*FPS + 4.75   | |
-| Depth 1280x800 |  16.08*FPS + 11.39   | |
+| Node              | Bandwidth Utilization |
+| :---------------- | :------ |
+| RGB 1024x1024        |   13.25*FPS + 4.25   |	
+| RGB 2048x2048           |   40.63*FPS + 68.34   |
+| RGB 1024x1024 encoded    |  1.94*FPS - 0.31   |
+| LR 1280x800 |  16.5*FPS + 15.8   |
+| LR 1280x800 encoded |  4.42*FPS + 4.75   |
+| Depth 1280x800 |  16.08*FPS + 11.39   |
+
+![model_bw_1](graphs/model_bw.png)
 
 Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
@@ -28,7 +30,9 @@ Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 | LR 1280x800 encoded |  1.6*FPS + 1   |
 | Depth 1280x800 |  2.48*FPS + 1.48   |
 
+<p>
 <img src="graphs/model_bw_1.png" width="60%" />
+</p>
 
 Base deduction when combining nodes is (-0.26*FPS + 1.78)
 
