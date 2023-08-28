@@ -21,12 +21,14 @@ Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
 | Node              | LeonOS Consumption |
 | :---------------- | :------ |
-| RGB 1024x1024        |   1.78*FPS + 0.96   | ![model_bw_1](graphs/model_bw_1.png) |
-| RGB 2048x2048           |   4.35*FPS + 3.29   |
+| RGB 1024x1024        |   1.78*FPS + 0.96   | ![model_bw_1](graphs/model_bw_1.png)
+| RGB 2048x2048           |   4.35*FPS + 3.29   | <img src="graphs/model_bw_1.png" width="33%" />
 | RGB 1024x1024 encoded    |  1.14*FPS + 0.55   |
 | LR 1280x800 |  2.34*FPS + 1.79   |
 | LR 1280x800 encoded |  1.6*FPS + 1   |
 | Depth 1280x800 |  2.48*FPS + 1.48   |
+
+<img src="graphs/model_bw_1.png" width="60%" />
 
 Base deduction when combining nodes is (-0.26*FPS + 1.78)
 
