@@ -11,13 +11,21 @@
 | LR 1280x800 encoded |  4.42*FPS + 4.75   |
 | Depth 1280x800 |  16.08*FPS + 11.39   |
 
-![](graphs/model_bw.png =1000x280)
+![model_bw](graphs/model_bw.png | width=300px)
 
 Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
 - 2048x2048 resolution is 4x more pixels than 1024x1024, as such the bandwidth utilization also becomes approx 4x.
 - Encoded 1024x1024 RGB takes about 8x less bandwidth than not encoded stream.
 - Encoded 1280x800 LR takes about 3.5x less bandwidth than not encoded stream.
+
+```
+# combining 2 nodes
+total_bandwidth = node1_bandwidth + node2_bandwidth - base
+
+# combining 3 nodes
+total_bandwidth = node1_bandwidth + node2_bandwidth + node3_bandwidth - (2*base)
+```
 
 ### LeonOS
 
@@ -48,6 +56,8 @@ Base deduction when combining nodes is (-0.26*FPS + 1.78)
 | LR 1280x800 |  0.17*FPS + 0.14   |
 | LR 1280x800 encoded |  0.32*FPS + 0.05  |
 | Depth 1280x800 |  0.31*FPS - 0.14   |
+
+![model_rt](graphs/model_rt.png)
 
 Base deduction when combining nodes is (0.014*FPS - 0.075)
 
