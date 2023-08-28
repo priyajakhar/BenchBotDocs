@@ -11,7 +11,7 @@
 | LR 1280x800 encoded |  4.42*FPS + 4.75   |
 | Depth 1280x800 |  16.08*FPS + 11.39   |
 
-![](graphs/model_bw.png | width=300px)
+![model_bw](graphs/model_bw.png)
 
 Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
@@ -50,11 +50,9 @@ Base deduction when combining nodes is (-0.26*FPS + 1.78)
 # combining 2 nodes
 total_cpu_os = node1_cpu_os + node2_cpu_os - base
 
-# combining LR mono and Depth nodes, LR mono are not encoded
-total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr - base
-
-# combining LR mono and Depth nodes, LR mono are encoded
-total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr_enc - base
+# combining LR mono and Depth nodes
+total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr - base	# LR mono are not encoded
+total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr_enc - base	# LR mono are encoded
 
 # combining 3 nodes
 total_cpu_os = node1_cpu_os + node2_cpu_os + node3_cpu_os - (2*base)
