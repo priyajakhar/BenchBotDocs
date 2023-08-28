@@ -11,7 +11,7 @@
 | LR 1280x800 encoded |  4.42*FPS + 4.75   |
 | Depth 1280x800 |  16.08*FPS + 11.39   |
 
-![model_bw](graphs/model_bw.png | width=300px)
+![](graphs/model_bw.png | width=300px)
 
 Base bandwidth deduction when combining nodes is (1.42*FPS + 0.91)
 
@@ -45,6 +45,20 @@ Base deduction when combining nodes is (-0.26*FPS + 1.78)
 - Deduction for common component of Mono cameras when combining single node data of LR and Depth is:
   - LR not encoded     0.01761 * (FPS * FPS) + 0.6511 * FPS + 2.192
   - LR encoded		-0.01072 * (FPS * FPS) + 1.293 * FPS + 0.2007
+  
+```
+# combining 2 nodes
+total_cpu_os = node1_cpu_os + node2_cpu_os - base
+
+# combining LR mono and Depth nodes, LR mono are not encoded
+total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr - base
+
+# combining LR mono and Depth nodes, LR mono are encoded
+total_cpu_os = lr_cpu_os + depth_cpu_os - common_lr_enc - base
+
+# combining 3 nodes
+total_cpu_os = node1_cpu_os + node2_cpu_os + node3_cpu_os - (2*base)
+```
 
 ### LeonRT
 
@@ -70,5 +84,25 @@ Base deduction when combining nodes is (0.014*FPS - 0.075)
 
 - Encoding in general increases LeonRT consumption, modeled for RGB by:
   - RGB encoded		-0.0213 * (FPS * FPS) + 0.2800 * FPS - 0.6189
+
+```
+# combining 2 nodes
+total_cpu_rt = node1_cpu_rt + node2_cpu_rt - base
+
+# combining LR mono and Depth nodes
+total_cpu_rt = lr_cpu_rt + depth_cpu_rt - common_lr - base	# LR mono are not encoded	
+total_cpu_rt = lr_cpu_rt + depth_cpu_rt - common_lr_enc - base	# LR mono are encoded
+
+# combining RGB and Depth nodes
+total_cpu_rt = rgb_cpu_rt + depth_cpu_rt - res_contention - base	# RGB not encoded	
+total_cpu_rt = rgb_cpu_rt + depth_cpu_rt - res_contention - rgb_enc - base	# RGB encoded
+
+# combining RGB and LR nodes
+total_cpu_rt = rgb_cpu_rt + lr_cpu_rt - base	# RGB not encoded	
+total_cpu_rt = rgb_cpu_rt + lr_cpu_rt - rgb_enc - base	# RGB encoded
+
+# combining 3 nodes
+total_cpu_rt = node1_cpu_rt + node2_cpu_rt + node3_cpu_rt - (2*base)
+```
 
 > The models for various deductions had to be represented by higher degree polynomials because of the non-linear nature of these deviations (curvature)
