@@ -4,7 +4,7 @@ Project logger
 
 from datetime import date
 import time
-import cv2
+# import cv2
 from pathlib import Path
 from from_root import from_root, from_here
 import csv
@@ -37,11 +37,12 @@ if not cam_status_file.exists():
 
 
 # writing current camera status to the csv file ( takes < 3 ms )
-def system_camera_status():
+def system_status_cameras():
     # st = time.time()
     camera_dict = [{'Timestamp': None, 'Connected': [], 'NotConnected': []} ]
     json_files = [cam_json for cam_json in os.listdir(cam_log_dir) if cam_json.endswith('.json')]
     # print(json_files)
+    json_files.sort()
     
     for cam_file in json_files:
         with open(cam_log_dir / cam_file) as json_file:
@@ -51,8 +52,6 @@ def system_camera_status():
             else:
                 camera_dict[0]['NotConnected'].append(data['Camera_ID'])
     camera_dict[0]['Timestamp'] = datetime.utcnow()
-    camera_dict[0]['Connected'].sort()
-    camera_dict[0]['NotConnected'].sort()
     # print(camera_dict)
 
     with open(cam_status_file, 'a', newline='') as file: 
@@ -67,7 +66,7 @@ def system_camera_status():
     print("Disconnected Cameras:", camera_dict[0]['NotConnected'])
 
 # takes around 3 ms max, mostly < 1 ms
-def camera_status_log(cam_id, status):
+def log_camera_status(cam_id, status):
     # st = time.time()
     camera_dict = {'Camera_ID': cam_id, 'Timestamp': str(datetime.utcnow()), 'Status': status}
     fileName = f"{cam_log_dir}/Camera_{cam_id}.json"
@@ -78,19 +77,6 @@ def camera_status_log(cam_id, status):
     # et = time.time()
     # elapsed_time = (et - st)*1000
     # print('Execution time:', elapsed_time)
-    
-
-# camera_status_log(1, 'Connected')
-# camera_status_log(2, 'Connected')
-# camera_status_log(3, 'NotConnected')
-# camera_status_log(4, 'Connected')
-# camera_status_log(5, 'Connected')
-# camera_status_log(6, 'NotConnected')
-# camera_status_log(7, 'NotConnected')
-# camera_status_log(8, 'Connected')
-# system_camera_status()
-
-
 
 '''
     Images Logging function
@@ -108,13 +94,10 @@ if not img_log_file.exists():
 
 def log_image(img, img_type, gps_tag):
     # save image in the image log directory
-    date_obj = datetime.utcnow()
-    day = date_obj.date()
-    hour = date_obj.time().hour
-    minutes = date_obj.time().minute
-    imgName = f"{day}_{hour}:{minutes}_{img_type}.jpg"
+    time_stamp = datetime.utcnow().strftime('D%Y%m%d_T%H%M%S')
+    imgName = f"{time_stamp}_{img_type}.jpg"
     fileName = f"{img_log_dir}/{imgName}"
-    cv2.imwrite(fileName, img)
+    # cv2.imwrite(fileName, img)
 
     # add gps tags to the saved image
     lat = dd_to_dms(gps_tag[0])
@@ -174,6 +157,9 @@ Longitude: -78.672968
 Easting: 710325.92
 Northing: 3961357.01
 zone: 17S
+
+35 46 25.3668
+78 40 22.6848
 
 Here are examples of formats that work:
     Decimal degrees (DD): 41.40338, 2.17403
