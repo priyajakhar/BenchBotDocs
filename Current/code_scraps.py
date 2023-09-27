@@ -172,3 +172,42 @@ seg_labels = (np.array(segmentation_labels.getFirstLayerFp16()).reshape(64,64)).
     
     
                 print(self.nodes[frame_name].getSequenceNum())
+                
+                print(f"\nExpected: {expected_val}, Actual: {round(actual_val, 1)}, Variance: {variance}")
+                
+                
+                
+                
+                
+                
+                    try:
+        fp = open(fileName, 'r+')
+        data = json.load(fp)
+    except:
+        cam_log = {"Camera_ID": cam_id, "Timestamp": [], "Status": []}
+        with open(fileName, 'w') as fp:
+            json.dump(cam_log, fp)
+        fp = open(fileName, 'r+')
+        data = json.load(fp)
+        pass
+    finally:
+        data["Timestamp"].append(t_stamp)
+        data["Status"].append(status)
+        fp.seek(0)
+        json.dump(data, fp, indent=4)
+        fp.close()
+        
+
+***************************************************************************
+# archive with zip
+        
+import zipfile
+
+
+# img_archive = img_log_dir / "images.zip"
+# if not img_archive.exists():
+    # with zipfile.ZipFile(img_archive, 'a') as myzip:
+        # myzip.printdir()
+
+    # with zipfile.ZipFile(img_archive, 'a') as imgtar:
+        # imgtar.write(fileName, arcname=imgName)
