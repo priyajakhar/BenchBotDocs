@@ -4,13 +4,12 @@ System to log event data for debugging and to also capture and store outputs of 
 
 Logs will be stored in internal storage and will also be accessible from the API. 
 
+****
+
 There are 2 logging functions available:
 * Camera Log
-  
-  camera_connection_status(cam_id, connected)
-  
-  arguments:
-  
+  * camera_connection_status(cam_id, connected)
+  * arguments:
     * cam_id: camera ID for which status needs to be logged
     * connected: a boolean flag to determine connection status, True for connected and False for disconnected
 
