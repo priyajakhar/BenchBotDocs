@@ -1,0 +1,1926 @@
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 12
+  closest_waypoint_index: 3
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.7658607130724691
+  duration_total: 4.999999999996021
+  duration_remaining: 4.7073258913405862
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014052408643076891
+          }
+          real: 0.99990126003087321
+        }
+      }
+      translation {
+        x: -3698.4578914127187
+        y: -13332.92321277211
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.21123134932796317
+      }
+      angular_velocity {
+        z: 0.0088036975429813986
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.012128831487076315
+          }
+          real: 0.99992644301806433
+        }
+      }
+      translation {
+        x: 0.86296584230240114
+        y: 0.070744112585089169
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21036229610633131
+        y: 0.010983398046520081
+      }
+      angular_velocity {
+        z: 0.012729891764524694
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.012128831487076315
+          }
+          real: 0.99992644301806433
+        }
+      }
+      translation {
+        x: -0.036769362301129149
+        y: 0.092574403373873793
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21036229610633131
+        y: -0.00047350454155534617
+      }
+      angular_velocity {
+        z: 0.012729891764524694
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: -0.0049233157249030934
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 12
+  closest_waypoint_index: 4
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.744217479643329
+  duration_total: 4.999999999996021
+  duration_remaining: 4.6802718495541606
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013641798504640749
+          }
+          real: 0.99990694633728727
+        }
+      }
+      translation {
+        x: -3698.4361830542316
+        y: -13332.923809253498
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.19276888496249012
+      }
+      angular_velocity {
+        z: 0.0031060526406459
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.012539449759382789
+          }
+          real: 0.99992137800915726
+        }
+      }
+      translation {
+        x: 0.84130710198041925
+        y: 0.07003936818910006
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.19242525680744701
+        y: 0.016246029843379427
+      }
+      angular_velocity {
+        z: 0.018427536666860193
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.012539449759382789
+          }
+          real: 0.99992137800915726
+        }
+      }
+      translation {
+        x: 0.041558682461527496
+        y: 0.090100910401815781
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.19242525680744701
+        y: 0.0015040005098890131
+      }
+      angular_velocity {
+        z: 0.018427536666860193
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.18916143193948751
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 12
+  closest_waypoint_index: 4
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.7235386784818125
+  duration_total: 4.999999999996021
+  duration_remaining: 4.6544233481022657
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013033348748366596
+          }
+          real: 0.99991506230299554
+        }
+      }
+      translation {
+        x: -3698.41544006129
+        y: -13332.924350780862
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.20182744508074305
+      }
+      angular_velocity {
+        z: 0.020249100874055917
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013147903450228197
+          }
+          real: 0.99991356258171815
+        }
+      }
+      translation {
+        x: 0.82064165695828706
+        y: 0.0690161272741534
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.19992370872718052
+        y: 0.0018054265219891417
+      }
+      angular_velocity {
+        z: 0.0012844884334501754
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013147903450228197
+          }
+          real: 0.99991356258171815
+        }
+      }
+      translation {
+        x: 0.020918244742915704
+        y: 0.090050954442631337
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.19992370872718052
+        y: 0.0007778357752142688
+      }
+      angular_velocity {
+        z: 0.0012844884334501754
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.19069415706870102
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 13
+  closest_waypoint_index: 5
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.6514229331752479
+  duration_total: 4.999999999996021
+  duration_remaining: 4.5642786664690593
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.01226786591116797
+          }
+          real: 0.99992474690147837
+        }
+      }
+      translation {
+        x: -3698.3437320257067
+        y: -13332.925371280384
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.30395971216401985
+      }
+      angular_velocity {
+        z: -0.0017013339132664384
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013913377467461054
+          }
+          real: 0.99990320427901824
+        }
+      }
+      translation {
+        x: 0.84899616018992674
+        y: 0.064238081564326421
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.303991467906316
+        y: 0.018823739293375125
+      }
+      angular_velocity {
+        z: 0.02323492322077253
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.013913377467461054
+          }
+          real: 0.99990320427901824
+        }
+      }
+      translation {
+        x: 0.049305891506264743
+        y: 0.086497330703423359
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.303991467906316
+        y: 0.00023580071675756431
+      }
+      angular_velocity {
+        z: 0.02323492322077253
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: -0.0015642397340009939
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 13
+  closest_waypoint_index: 5
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.6322980972128036
+  duration_total: 4.999999999996021
+  duration_remaining: 4.5403726215160045
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.012267892880243504
+          }
+          real: 0.99992474657060015
+        }
+      }
+      translation {
+        x: -3698.3245570040203
+        y: -13332.92584244586
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.21480321033901575
+      }
+      angular_velocity {
+        z: 0.0035295625310638084
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.01391335049896654
+          }
+          real: 0.99990320465427707
+        }
+      }
+      translation {
+        x: 0.829815347220574
+        y: 0.0642387121970387
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21441190660349654
+        y: 0.016942178494447152
+      }
+      angular_velocity {
+        z: 0.018004026776442285
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.01391335049896654
+          }
+          real: 0.99990320465427707
+        }
+      }
+      translation {
+        x: 0.030125077336833783
+        y: 0.086497918198801926
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21441190660349654
+        y: 0.0025389570732923588
+      }
+      angular_velocity {
+        z: 0.018004026776442285
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.17398471308160596
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 13
+  closest_waypoint_index: 5
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.6073292309513345
+  duration_total: 4.999999999996021
+  duration_remaining: 4.5091615386891677
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.011628409676350544
+          }
+          real: 0.99993238775849191
+        }
+      }
+      translation {
+        x: -3698.2995193905144
+        y: -13332.926443500977
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.23881141066625705
+      }
+      angular_velocity {
+        z: 0.024435337828150949
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014552814572156096
+          }
+          real: 0.99989410218684094
+        }
+      }
+      translation {
+        x: 0.80485201341207357
+        y: 0.063195914886819082
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.23659434341586041
+        y: -0.00072327316165877314
+      }
+      angular_velocity {
+        z: -0.0029017485206448562
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014552814572156096
+          }
+          real: 0.99989410218684094
+        }
+      }
+      translation {
+        x: 0.0051908684713453113
+        y: 0.086477952425411786
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.23659434341586041
+        y: 0.0015981256548504427
+      }
+      angular_velocity {
+        z: -0.0029017485206448562
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.17277039436053368
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 14
+  closest_waypoint_index: 5
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.5809388637489619
+  duration_total: 4.999999999996021
+  duration_remaining: 4.4761735796862023
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.011317962471372196
+          }
+          real: 0.999935949811535
+        }
+      }
+      translation {
+        x: -3698.2735905887712
+        y: -13332.927042790297
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.21771392519264154
+      }
+      angular_velocity {
+        z: 0.0160486946095499
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014863248628897385
+          }
+          real: 0.99988953581893025
+        }
+      }
+      translation {
+        x: 0.87891119201412948
+        y: 0.059736071340012131
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21624021274893612
+        y: 0.0074518587393392587
+      }
+      angular_velocity {
+        z: 0.0054848946979561934
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014863248628897385
+          }
+          real: 0.99988953581893025
+        }
+      }
+      translation {
+        x: -0.020691158897534478
+        y: 0.086486963529750938
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.21624021274893612
+        y: 0.0025154535111728436
+      }
+      angular_velocity {
+        z: 0.0054848946979561934
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.14196130422169922
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 14
+  closest_waypoint_index: 6
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.5413450444886663
+  duration_total: 4.999999999996021
+  duration_remaining: 4.426681305610833
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.011242816736728131
+          }
+          real: 0.99993679753863662
+        }
+      }
+      translation {
+        x: -3698.233903186218
+        y: -13332.928107794733
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.24461973549135202
+      }
+      angular_velocity {
+        z: 0.016979580217524756
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014938390801575448
+          }
+          real: 0.99988841601463685
+        }
+      }
+      translation {
+        x: 0.8392188451898619
+        y: 0.059776364620120148
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24307035035951588
+        y: 0.00647312811697771
+      }
+      angular_velocity {
+        z: 0.0045540090899813361
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.014938390801575448
+          }
+          real: 0.99988841601463685
+        }
+      }
+      translation {
+        x: 0.039575894022163993
+        y: 0.083675122885324527
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24307035035951588
+        y: 0.0028299208449802851
+      }
+      angular_velocity {
+        z: 0.0045540090899813361
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.18611631237763271
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 14
+  closest_waypoint_index: 6
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.5134693227188079
+  duration_total: 4.999999999996021
+  duration_remaining: 4.3918366533985091
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.009969879041279309
+          }
+          real: 0.99995029952088232
+        }
+      }
+      translation {
+        x: -3698.2059638508181
+        y: -13332.928689703518
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.24857210942518282
+      }
+      angular_velocity {
+        z: 0.025319661544307762
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245692893683
+          }
+          real: 0.999868589122133
+        }
+      }
+      translation {
+        x: 0.81142293308812441
+        y: 0.057664223453684826
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24631615555652414
+        y: -0.00055142544758370049
+      }
+      angular_velocity {
+        z: -0.00378607223680167
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245692893683
+          }
+          real: 0.999868589122133
+        }
+      }
+      translation {
+        x: 0.011843420268178306
+        y: 0.083598808028909843
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24631615555652414
+        y: 0.0024774323418392113
+      }
+      angular_velocity {
+        z: -0.00378607223680167
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.14220489194256294
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 15
+  closest_waypoint_index: 6
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.4848732492451484
+  duration_total: 4.999999999996021
+  duration_remaining: 4.3560915615564353
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0099698790352095012
+          }
+          real: 0.99995029952094283
+        }
+      }
+      translation {
+        x: -3698.1777971708875
+        y: -13332.929251429412
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.24570094383626398
+      }
+      angular_velocity {
+        z: 0.00074689428140908842
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245698962994
+          }
+          real: 0.99986858912203458
+        }
+      }
+      translation {
+        x: 0.88319809158974749
+        y: 0.054422405728473677
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24550979006328388
+        y: 0.02152384398885214
+      }
+      angular_velocity {
+        z: 0.020786695026097004
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245698962994
+          }
+          real: 0.99986858912203458
+        }
+      }
+      translation {
+        x: -0.016328860332578188
+        y: 0.083598813385833637
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24550979006328388
+        y: 0.0028158184653642223
+      }
+      angular_velocity {
+        z: 0.020786695026097004
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: -0.084833156758931369
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 15
+  closest_waypoint_index: 6
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.4710138403075779
+  duration_total: 4.999999999996021
+  duration_remaining: 4.3387673003844718
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.009969879035022779
+          }
+          real: 0.99995029952094472
+        }
+      }
+      translation {
+        x: -3698.1639138158939
+        y: -13332.929528301598
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.25722142936131775
+      }
+      angular_velocity {
+        z: -0.0019283541234179592
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245699149703
+          }
+          real: 0.99986858912203158
+        }
+      }
+      translation {
+        x: 0.869311976075096
+        y: 0.054422405892182724
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.25724546613466054
+        y: 0.023480419465293955
+      }
+      angular_velocity {
+        z: 0.023461943430924052
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.016211245699149703
+          }
+          real: 0.99986858912203158
+        }
+      }
+      translation {
+        x: -0.030214975847229653
+        y: 0.083598813549542683
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.25724546613466054
+        y: 0.0023646703774638858
+      }
+      angular_velocity {
+        z: 0.023461943430924052
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.12504480688650377
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 16
+  closest_waypoint_index: 7
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.389495357774444
+  duration_total: 4.999999999996021
+  duration_remaining: 4.2368691972180548
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.00796430448482541
+          }
+          real: 0.99996828442409758
+        }
+      }
+      translation {
+        x: -3698.0827073093428
+        y: -13332.930745669499
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.29478629660516803
+      }
+      angular_velocity {
+        z: 0.019373011829849879
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.018216603707757496
+          }
+          real: 0.9998340639072838
+        }
+      }
+      translation {
+        x: 0.88824132285208179
+        y: 0.047215928281730157
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.29304970726781854
+        y: 0.004398987341052641
+      }
+      angular_velocity {
+        z: 0.0021605774776562135
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.018216603707757496
+          }
+          real: 0.9998340639072838
+        }
+      }
+      translation {
+        x: -0.011161356776483444
+        y: 0.080000373929578927
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.29304970726781854
+        y: 0.0024544676111550034
+      }
+      angular_velocity {
+        z: 0.0021605774776562135
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: -0.075075232900797664
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 16
+  closest_waypoint_index: 7
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.3608892728017619
+  duration_total: 4.999999999996021
+  duration_remaining: 4.2011115910022019
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0074391120556355972
+          }
+          real: 0.99997232942308145
+        }
+      }
+      translation {
+        x: -3698.0540636806118
+        y: -13332.931187766226
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.25431097253315293
+      }
+      angular_velocity {
+        z: 0.01360473007804263
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.01874172203234371
+          }
+          real: 0.99982435850266349
+        }
+      }
+      translation {
+        x: 0.85964339331530937
+        y: 0.046298772744194139
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.25306457831748808
+        y: 0.011106212762735317
+      }
+      angular_velocity {
+        z: 0.007928859229463462
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.01874172203234371
+          }
+          real: 0.99982435850266349
+        }
+      }
+      translation {
+        x: -0.039724352823668596
+        y: 0.080027947120470344
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.25306457831748808
+        y: 0.0039702394562132533
+      }
+      angular_velocity {
+        z: 0.007928859229463462
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.10515635079599875
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 16
+  closest_waypoint_index: 8
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.3310826265971523
+  duration_total: 4.999999999996021
+  duration_remaining: 4.16385328324644
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0065150951377222436
+          }
+          real: 0.99997877654245559
+        }
+      }
+      translation {
+        x: -3698.0242172298122
+        y: -13332.931591677472
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.26285055240512945
+      }
+      angular_velocity {
+        z: 0.0253524735246873
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019665591042072484
+          }
+          real: 0.99980661356532641
+        }
+      }
+      translation {
+        x: 0.82987830906495219
+        y: 0.044724986060828087
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.26068688616777042
+        y: 0.00098555442473032
+      }
+      angular_velocity {
+        z: -0.0038188842171812086
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019665591042072484
+          }
+          real: 0.99980661356532641
+        }
+      }
+      translation {
+        x: 0.030497085819206404
+        y: 0.076183846833373536
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.26068688616777042
+        y: 0.004040661798468374
+      }
+      angular_velocity {
+        z: -0.0038188842171812086
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.1072952561459303
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 16
+  closest_waypoint_index: 8
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.3013656320078595
+  duration_total: 4.999999999996021
+  duration_remaining: 4.1267070400098245
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0059618976133536707
+          }
+          real: 0.99998222773049716
+        }
+      }
+      translation {
+        x: -3697.9944583988095
+        y: -13332.931970945167
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.24956252435145732
+      }
+      angular_velocity {
+        z: 0.021563288493287883
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.020218689318297695
+          }
+          real: 0.99979558140764468
+        }
+      }
+      translation {
+        x: 0.80016604784668743
+        y: 0.043831176571984543
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24771654044814462
+        y: 0.0050088994898704366
+      }
+      angular_velocity {
+        z: -2.9699185781790344e-05
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.020218689318297695
+          }
+          real: 0.99979558140764468
+        }
+      }
+      translation {
+        x: 0.00082012048369506374
+        y: 0.076174466559677967
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.24771654044814462
+        y: 0.0050326588384899881
+      }
+      angular_velocity {
+        z: -2.9699185781790344e-05
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.10816953028026878
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 17
+  closest_waypoint_index: 9
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.2340582627039982
+  duration_total: 4.999999999996021
+  duration_remaining: 4.0425728283799973
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0063817375600625252
+          }
+          real: 0.99997963650552124
+        }
+      }
+      translation {
+        x: -3697.9274492639261
+        y: -13332.933820195736
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.27136184382107453
+      }
+      angular_velocity {
+        z: 0.0073222991846609853
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019798925427205769
+          }
+          real: 0.99980398206444843
+        }
+      }
+      translation {
+        x: 0.83302328224681332
+        y: 0.041537896220688708
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.27060369768968223
+        y: 0.017627681184518674
+      }
+      angular_velocity {
+        z: 0.014211290122845107
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019798925427205769
+          }
+          real: 0.99980398206444843
+        }
+      }
+      translation {
+        x: 0.033650478164872766
+        y: 0.073209967393268016
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.27060369768968223
+        y: 0.0062586490862405909
+      }
+      angular_velocity {
+        z: 0.014211290122845107
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.19303462299199547
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 17
+  closest_waypoint_index: 9
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.219138193985343
+  duration_total: 4.999999999996021
+  duration_remaining: 4.0239227424816786
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.00638173722552957
+          }
+          real: 0.9999796365076562
+        }
+      }
+      translation {
+        x: -3697.9125115361894
+        y: -13332.934010872073
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.26153433590747355
+      }
+      angular_velocity {
+        z: 0.0073222991846609853
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019798925761679961
+          }
+          real: 0.999803982057825
+        }
+      }
+      translation {
+        x: 0.81808433761989363
+        y: 0.04153790304553695
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.26078822508904659
+        y: 0.018126054587502206
+      }
+      angular_velocity {
+        z: 0.014211290122845107
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.019798925761679961
+          }
+          real: 0.999803982057825
+        }
+      }
+      translation {
+        x: 0.018711533558871452
+        y: 0.073209974752899143
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.26078822508904659
+        y: 0.0067570224892241227
+      }
+      angular_velocity {
+        z: 0.014211290122845107
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: 0.11915389966214383
+  }
+}
+status {
+  track_status: TRACK_FOLLOWING
+  robot_status {
+    controllable: true
+  }
+  driving_direction: DIRECTION_FORWARD
+  waypoint_order: ORDER_STANDARD
+}
+progress {
+  track_size: 42
+  goal_waypoint_index: 18
+  closest_waypoint_index: 9
+  distance_total: 3.9999999999968168
+  distance_remaining: 3.1919247000311217
+  duration_total: 4.999999999996021
+  duration_remaining: 3.989905875038902
+}
+poses {
+  world_from_robot {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.0051873207018604834
+          }
+          real: 0.99998654576145973
+        }
+      }
+      translation {
+        x: -3697.8856414486836
+        y: -13332.934321275206
+      }
+    }
+    frame_a: "world"
+    frame_b: "robot"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: 0.23980485630124959
+      }
+      angular_velocity {
+        z: 0.011649498606511478
+      }
+    }
+  }
+  robot_from_goal {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.020993113801603513
+          }
+          real: 0.99977962030285106
+        }
+      }
+      translation {
+        x: 0.89122122812796079
+        y: 0.035417411856542458
+      }
+    }
+    frame_a: "robot"
+    frame_b: "goal"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.2387454390988524
+        y: 0.01618500964429808
+      }
+      angular_velocity {
+        z: 0.0098840907009946147
+      }
+    }
+  }
+  robot_from_closest_waypoint {
+    a_from_b {
+      rotation {
+        unit_quaternion {
+          imag {
+            z: -0.020993113801603513
+          }
+          real: 0.99977962030285106
+        }
+      }
+      translation {
+        x: -0.00798549238288615
+        y: 0.073196689078031341
+      }
+    }
+    frame_a: "robot"
+    frame_b: "closest_waypoint"
+    tangent_of_b_in_a {
+      linear_velocity {
+        x: -0.2387454390988524
+        y: 0.0072893280133986878
+      }
+      angular_velocity {
+        z: 0.0098840907009946147
+      }
+    }
+  }
+}
+commands {
+  linear_velocity {
+    x: 0.8
+  }
+  angular_velocity {
+    z: -0.12667244791883564
+  }
+}
