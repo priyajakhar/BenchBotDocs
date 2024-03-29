@@ -1,0 +1,126 @@
+# Frame rate for all camera streams (color and mono camera nodes)
+fps: 10
+
+# Frame rate for running 3A algorithms (auto-focus, auto-exposure, and auto-white-balance) for all camera streams, Default (0) matches the camera FPS
+fps_3a: 0
+
+# Enable or disable debugging to print information about CPU/RAM consumption, temperature, CMX slices and SHAVE core allocation
+debug: False
+
+# Adding manual timeout 
+timeout: 10
+
+# Path for camera tuning blob file
+camera_tuning_blob: "camera_blob/camera_tuning_blob.bin"
+
+# Pipeline to be uploaded to camera
+pipeline: "imu_pipeline"
+# Pipeline for data collection, fetching color, depth and/or mono frames from camera
+data_pipeline:
+    RGB:
+        # dimensions for preview output of ColorCamera
+        preview: !!seq
+            - 1024
+            - 1024
+        # dimensions for video output of ColorCamera
+        video: !!seq
+            - 2048
+            - 2048
+        # define how the output from ColorCamera should be obtained
+        xout:
+            # source of output stream (video, preview)
+            input: "video"
+            # enable/disable encoding of output (preview is not readily encodable because of its data type)
+            encode: True
+            # enable/disable control over frequency at which output is provided (if control is not needed time_gap should be 0, unit is in seconds)
+            time_gap: 0
+        
+    Mono:
+        # Link output of MonoCameras to host computer
+        xout: False
+        # enable/disable encoding of MonoCamera output
+        encode: False
+        # control rate of frames at camera level
+        time_gap: 0
+        
+    Depth:
+        # enable/disable Subpixel Disparity mode for StereoDepth node
+        subpixel: False
+        # switch between fetching "disparity" or "depth" output, False for "depth", True for "disparity"
+        disparity: False
+
+    IMU:
+        freq: 25
+
+# Pipeline for running segmentation neural net on board the camera, depth and/or mono frames from camera
+segmentation_pipeline:
+    RGB:
+        preview: !!seq
+            - 1024
+            - 1024
+        video: !!seq
+            - 2048
+            - 2048
+        xout:
+            input: "video"
+            encode: True
+            time_gap: 2
+    
+    Mono:
+        xout: False
+        encode: False
+        time_gap: 0
+        
+    Depth:
+        subpixel: False
+        disparity: False
+    
+    Segmentation:
+        # path for neural net model
+        blob_path: "models/segmentation_model.blob"
+        # dimensions of the output from the model (width and height)
+        output_dims:
+            w: 64
+            h: 64
+
+imu_pipeline:
+    IMU:
+        # lawn values
+        # Soft-bias: [[2.324329, -0.005460, -0.060285], [-0.005460, 2.456983, -0.012367], [-0.060285, -0.012367, 2.489272]]
+        # Hard-bias: [-1128.978454, 1124.907735, -1014.810137]
+        # indoor values
+        # Soft-bias: [[1.172321, 0.035667, 0.031644], [0.035667, 1.199689, -0.005929], [0.031644, -0.005929, 1.123545]]
+        # Hard-bias: [0.236990, -0.072006, -0.229032]
+        
+        # Soft-bias: [[2.943716, -0.092339, -0.018632], [-0.092339, 2.709006, 0.019375], [-0.018632, 0.019375, 2.209687]]
+        # Hard-bias: [-994.236711, 1247.750551, -1041.476859]
+
+        # Soft-bias: [[4.455992, -0.027697, -0.581086], [-0.027697, 3.356555, 0.096505], [-0.581086, 0.096505, 4.724116]]
+        # Hard-bias: [-1933.196875, 1551.815774, 65.005696]
+
+        # Soft-bias: [[2.251519, 0.229455, -0.114855], [0.229455, 3.037041, 0.030808], [-0.114855, 0.030808, 3.780051]]
+        # Hard-bias: [-29.535024, -17.560799, 29.086685]
+
+        # Soft-bias: [[2.822479,-0.248126,-1.298529], [-0.248126, 3.995922, -0.282073], [-1.298529, -0.282073, 3.264302]]
+        # Hard-bias: [-30.046144, -4.326274, -52.927991]
+
+        # Soft-bias: [[3.964505, -0.369472, -1.975948], [-0.369472, 5.590617, -0.537682], [-1.975948, -0.537682, 3.996082]]
+        # Hard-bias: [-36.297451, -17.811277, -61.529285]
+
+        # Soft-bias: [[4.537413, -0.282829, -2.062322], [-0.282829, 5.711459, -0.465442], [-2.062322, -0.465442, 2.941616]]
+        # Hard-bias: [-34.108806, -4.624761, -36.932005]
+
+        # calib data 4 circles
+        # Soft-bias: [[4.418964, -0.262379, -2.005191], [-0.262379, 5.583431, -0.436255], [-2.005191, -0.436255, 3.040697]]
+        # Hard-bias: [-37.157983, -6.833091, -48.307929]
+
+
+        Soft-bias: [[1,0,0], [0,1,0], [0,0,1]]
+        Hard-bias: [0,0,0]
+        Declination: 0 #-9.336944
+
+        
+        Mag:
+            freq: 100
+        Acc:
+            freq: 125
