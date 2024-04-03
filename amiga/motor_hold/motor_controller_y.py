@@ -28,6 +28,11 @@ class MotorControllerY():
         await self.client.request_reply("/twist", self.twist)
         await asyncio.sleep(0.05)
 
+    async def hold_motors(self, time_s) -> None:
+        total = time_s/0.05
+        for v in range(total):
+           await self.set_motor_velocity(0.05)
+
     async def move_y(self, distance) -> None:
         distance_in_m = abs(distance/100)
         direction_flag = True
