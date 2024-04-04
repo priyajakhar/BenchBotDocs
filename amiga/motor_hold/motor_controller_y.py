@@ -17,7 +17,7 @@ VELOCITY_INCREMENT = 0.05
 ANGULAR_VELOCITY = 0.05
 
 class MotorControllerY():
-    def __init__(self, file_path=from_root("brain_api/common/service_config.json")):
+    def __init__(self, file_path=from_root("amiga/motor_hold/service_config.json")):
         service_config_path = Path(file_path)
         self.twist = Twist2d()
         config: EventServiceConfig = proto_from_json_file(service_config_path, EventServiceConfig())
@@ -29,9 +29,9 @@ class MotorControllerY():
         await asyncio.sleep(0.05)
 
     async def hold_motors(self, time_s) -> None:
-        total = time_s/0.05
+        total = int(time_s/0.05)
         for v in range(total):
-           await self.set_motor_velocity(0.05)
+           await self.set_motor_velocity(0.02)
 
     async def move_y(self, distance) -> None:
         distance_in_m = abs(distance/100)
