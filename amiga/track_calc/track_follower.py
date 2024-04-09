@@ -68,39 +68,14 @@ class MotorController_Y():
     async def stream_status(self) -> None:
         await asyncio.sleep(1.0)
         message: TrackFollowerState
-        start_time = time.time()
-        distance_gap = 0.5
-        last_distance_mark = None
-        track_paused = False
         with open(logfile, "a") as l_file:
             async for _, message in self.clients["track_follower"].subscribe(SubscribeRequest(uri=Uri(path="/state"), every_n=1)):
-                track_progress = message.progress
-                if not last_distance_mark:
-                    last_distance_mark = track_progress.distance_total
-                    print("Distance Mark:", last_distance_mark)
-                if last_distance_mark-track_progress.distance_remaining >= distance_gap:
-                    await self.pause_track()
-                    last_distance_mark = track_progress.distance_remaining
-                    print("Pause at:", last_distance_mark)
-                    start_time = time.time()
-                    track_paused = True
-                    
-                if track_paused:
-                    if time.time()-start_time > 5:
-                        await self.resume_track()
-                        print("Resume at:", time.time())
-                        track_paused = False
-
-                # if the track is completed
-                if message.status.track_status == 5:
-                    print("COMPLETED!")
-                    break
                 # if there is issue with following the track
                 if message.status.track_status == 7:
                     print("ABORTED!")
                     break
                 # l_file.write(str(message))
-                # print("###################\n", message.progress)
+                print(f"{message.progress.distance_remaining}\n")
 
     # Start the trackfollower service to have the robot following the path
     async def start_track(self, track_file: str) -> None:
@@ -114,7 +89,7 @@ class MotorController_Y():
         # await self.set_track(track)
         # Start following the track
         # await self.start()
-        self.poses = get_poses(track)
+        self.poses = get_poses(track, 0.5)
         print('retrieved poses')
         # await self.start()
         for target_pose in self.poses:
@@ -151,11 +126,10 @@ class MotorController_Y():
         asyncio.ensure_future(self.stop_track(), loop=loop)
 
 
-def get_poses(track: Track) -> list[Pose3F64]:
+def get_poses(track: Track, track_gap) -> list[Pose3F64]:
     complete_track = track.waypoints
     sub_track: list[Pose3F64] = []
     previous_pose = None
-    track_gap = 0.5
     for waypoint in complete_track:
         if not previous_pose:
             sub_track.append(waypoint)
