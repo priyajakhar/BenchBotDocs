@@ -116,7 +116,7 @@ class MotorController_Y():
         # await self.start()
         self.poses = get_poses(track)
         print('retrieved poses')
-        await self.start()
+        # await self.start()
         for target_pose in self.poses:
             await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
             print('request send')
