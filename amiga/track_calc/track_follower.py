@@ -59,7 +59,10 @@ class MotorController_Y():
     
     # Request to stop the track follower
     async def stop_track(self) -> None:
-        await self.clients["track_follower"].request_reply("/cancel", Empty())
+        try:
+            await self.clients["track_follower"].request_reply("/cancel", Empty())
+        except:
+            pass
 
     # stream the track_follower state
     async def stream_status(self) -> None:
@@ -149,6 +152,8 @@ class MotorController_Y():
 def get_poses(track: Track) -> list[Pose3F64]:
     complete_track = track.waypoints
     print(len(complete_track), type(complete_track))
+    for p_point in complete_track:
+        print(p_point.a_from_b.translation)
     return
     sub_track = []
     previous_pose = None
