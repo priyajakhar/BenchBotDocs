@@ -151,25 +151,24 @@ class MotorController_Y():
 
 def get_poses(track: Track) -> list[Pose3F64]:
     complete_track = track.waypoints
-    print(len(complete_track), type(complete_track))
-    for p_point in complete_track:
-        print(p_point.a_from_b.translation)
-    return
-    sub_track = []
+    # print(len(complete_track), type(complete_track))
+    # for p_point in complete_track:
+    #     print(p_point.a_from_b.translation)
+    # return
+
+    sub_track: list[Pose3F64] = [previous_pose]
     previous_pose = None
     track_gap = 0.5
     for waypoint in complete_track:
         if not previous_pose:
-            # sub_track.append(dict({'pose': waypoint}))
-            sub_track.append(Pose3F64(waypoint))
+            sub_track.append(waypoint)
             previous_pose = waypoint
         else:
-            p1 = [ [ previous_pose['aFromB']['translation']['x'], previous_pose['aFromB']['translation']['y'] ] ]
-            p2 = [ [ waypoint['aFromB']['translation']['x'],    waypoint['aFromB']['translation']['y'] ] ]
+            p1 = [ [ previous_pose.a_from_b.translation.x, previous_pose.a_from_b.translation.y ] ]
+            p2 = [ [ waypoint.a_from_b.translation.x,    waypoint.a_from_b.translation.y ] ]
             dist = round(cdist(p1, p2, 'euclidean')[0][0], 2)
             if dist >= track_gap:
-                # sub_track.append(dict({'pose': waypoint}))
-                sub_track.append(Pose3F64(waypoint))
+                sub_track.append(waypoint)
                 previous_pose = waypoint
 
     print(len(sub_track))
