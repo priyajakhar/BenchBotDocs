@@ -111,11 +111,12 @@ class MotorController_Y():
         # await self.set_track(track)
         # Start following the track
         # await self.start()
-        self.poses = get_poses(track_file)
+        self.poses = get_poses(track)
 
-        await self.start()
-        for target_pose in self.poses:
-            await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
+        # await self.start()
+        # for target_pose in self.poses:
+        #     await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
+        
         # await self.clients["track_follower"].request_reply("/set_track", TrackFollowRequest(track=track))
 
     async def run_track_service(self, track_file: str) -> None:
@@ -123,7 +124,7 @@ class MotorController_Y():
             # Start the asyncio tasks
             tasks: list[asyncio.Task] = [
                 asyncio.create_task(self.start_track(track_file)),
-                asyncio.create_task(self.stream_status()),
+                # asyncio.create_task(self.stream_status()),
             ]
             await asyncio.gather(*tasks)
         finally:
@@ -145,10 +146,10 @@ class MotorController_Y():
         asyncio.ensure_future(self.stop_track(), loop=loop)
 
 
-def get_poses(track_file: str) -> list[Pose3F64]:
-    with open(track_file) as f:
-        data = json.load(f)
-    complete_track = data['waypoints']
+def get_poses(track: Track) -> list[Pose3F64]:
+    complete_track = track['waypoints']
+    print(len(complete_track))
+    return
     sub_track = []
     previous_pose = None
     track_gap = 0.5
