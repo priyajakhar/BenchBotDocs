@@ -147,7 +147,7 @@ class MotorController_Y():
 
 
 def get_poses(track: Track) -> list[Pose3F64]:
-    complete_track = track['waypoints']
+    complete_track = track.waypoints
     print(len(complete_track))
     return
     sub_track = []
