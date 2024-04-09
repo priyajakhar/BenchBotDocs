@@ -115,10 +115,12 @@ class MotorController_Y():
         # Start following the track
         # await self.start()
         self.poses = get_poses(track)
-
-        # await self.start()
-        # for target_pose in self.poses:
-        #     await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
+        print('retrieved poses')
+        await self.start()
+        for target_pose in self.poses:
+            await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
+            print('request send')
+            break
         
         # await self.clients["track_follower"].request_reply("/set_track", TrackFollowRequest(track=track))
 
@@ -151,12 +153,6 @@ class MotorController_Y():
 
 def get_poses(track: Track) -> list[Pose3F64]:
     complete_track = track.waypoints
-    print(len(complete_track))
-    # print(type(complete_track))
-    # for p_point in complete_track:
-    #     print(p_point.a_from_b.translation)
-    # return
-
     sub_track: list[Pose3F64] = []
     previous_pose = None
     track_gap = 0.5
@@ -171,7 +167,5 @@ def get_poses(track: Track) -> list[Pose3F64]:
             if dist >= track_gap:
                 sub_track.append(waypoint)
                 previous_pose = waypoint
-
-    print(len(sub_track))
     return sub_track
 
