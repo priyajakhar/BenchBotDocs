@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 import signal
 from from_root import from_root, from_here
-from path_builder import add_from_json_file
+from path_builder import add_from_json_file, PathBuilder
 
 import json
 import numpy as np
@@ -38,16 +38,12 @@ class MotorController_Y():
             self.path_builder = PathBuilder()
             self.total_path_length = total_path_length
             self.waypoint_gap = waypoint_gap
+        self.track_flag = True
 
     ''' Functions related to following the path'''
     # Set the track of the track_follower
     async def set_track(self, track: Track) -> None:
         await self.clients["track_follower"].request_reply("/set_track", TrackFollowRequest(track=track))
-
-    # Request to start following the track
-    async def start(self) -> None:
-        await self.clients["track_follower"].request_reply("/start", Empty())
-        print('Follower started')
 
     # Request to pause the track follower
     async def pause_track(self) -> None:
@@ -70,8 +66,10 @@ class MotorController_Y():
         message: TrackFollowerState
         with open(logfile, "a") as l_file:
             async for _, message in self.clients["track_follower"].subscribe(SubscribeRequest(uri=Uri(path="/state"), every_n=1)):
+                status = message.status.track_status
+                print(status)
                 # if there is issue with following the track
-                if message.status.track_status == 7:
+                if status in [0, 1, 2, 6, 7]:
                     print("ABORTED!")
                     break
                 # l_file.write(str(message))
@@ -96,7 +94,9 @@ class MotorController_Y():
             await self.clients["track_follower"].request_reply("/go_to_goal", target_pose)
             print('request send')
             break
-        
+            # wait between poses
+            await asyncio.sleep(1.0)
+        print('Done')
         # await self.clients["track_follower"].request_reply("/set_track", TrackFollowRequest(track=track))
 
     async def run_track_service(self, track_file: str) -> None:
@@ -104,7 +104,7 @@ class MotorController_Y():
             # Start the asyncio tasks
             tasks: list[asyncio.Task] = [
                 asyncio.create_task(self.start_track(track_file)),
-                # asyncio.create_task(self.stream_status()),
+                asyncio.create_task(self.stream_status()),
             ]
             await asyncio.gather(*tasks)
         finally:

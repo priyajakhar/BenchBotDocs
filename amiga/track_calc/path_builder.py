@@ -29,7 +29,7 @@ def add_from_json_file(expected_list: list, json_file_path: str) -> dict[str, Ev
 
 ''' Class for creating a straight path'''
 class PathBuilder():
-    def __init__(self, config_file="brain_api/rtk/track_config.json"):
+    def __init__(self, config_file="amiga/track_calc/track_config.json"):
         config_file_path = from_root(config_file)
         # Setup EventClients defined by the service file
         expected_configs = ["filter"]
@@ -81,7 +81,7 @@ class PathBuilder():
 
         # Return the list of waypoints as a Track proto message and save the track in json file
         constructed_track: Track = self.format_track(track_waypoints)
-        output_dir = from_root("brain_api/rtk")
+        output_dir = from_root("amiga/track_calc")
         if not proto_to_json_file(track_file, constructed_track):
             raise RuntimeError(f"Failed to write Track to {output_dir}")
         print(f"Saved track of length {len(constructed_track.waypoints)} to {output_dir}")
