@@ -73,7 +73,9 @@ class MotorController_Y():
     # Save poses list
     def save_poses(self, r_poses) -> None:
         poses_list = [pose.to_proto() for pose in r_poses]
-        if not proto_to_json_file(pose_file, poses_list):
+        pose_dict: Track = Track(waypoints=poses_list)
+        # pose_dict = {"poses": poses_list}
+        if not proto_to_json_file(pose_file, pose_dict):
             raise RuntimeError(f"Failed to log poses")
         print(f"Saved {len(poses_list)} poses to {pose_file}")
 
@@ -85,12 +87,16 @@ class MotorController_Y():
         recorded_poses: list[Pose3F64] = []
         
         with open(logfile, "a") as l_file:
-            async for i in range(5):
+            for i in range(5):
+                print(i)
                 curr_pose = await self.get_pose()
+                x, y = curr_pose.a_from_b.translation[0], curr_pose.a_from_b.translation[1]
+                print(x, y)
                 recorded_poses.append(curr_pose)
                 # l_file.write(str(curr_pose.to_proto()))
                 await asyncio.sleep(2.0)
-
+        # print(len(recorded_poses), type(recorded_poses))
+        # print(recorded_poses)
         self.save_poses(recorded_poses)
 
     # Start the trackfollower service to have the robot following the path
