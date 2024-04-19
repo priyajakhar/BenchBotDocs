@@ -22,13 +22,15 @@ class MotorControllerY():
         self.twist = Twist2d()
         config: EventServiceConfig = proto_from_json_file(service_config_path, EventServiceConfig())
         self.client: EventClient = EventClient(config)
-        self.slight_left = True
-        self.slight_right = False
+        self.slight_left = False
+        self.slight_right = True
 
     async def set_motor_velocity(self, speed, turn=None) -> None:
         self.twist.linear_velocity_x = speed
-        if not turn:
+        if turn is not None:
             self.twist.angular_velocity = turn
+        else:
+            self.twist.angular_velocity = 0
         await self.client.request_reply("/twist", self.twist)
         await asyncio.sleep(0.05)
 
@@ -43,18 +45,28 @@ class MotorControllerY():
         if distance < 0:
             direction_flag = False
         velocity_track = get_velocity_graph(distance_in_m, LINEAR_VELOCITY, VELOCITY_INCREMENT, direction_flag)
+        turn_count = 30
         for v in velocity_track:
             if self.slight_left:
                 await self.set_motor_velocity(v, -ANGULAR_VELOCITY)
-                # self.slight_left = False
+                turn_count -= 1
+                print(turn_count)
+                if turn_count<=0:
+                    self.slight_left = False
+                    print('left off')
             elif self.slight_right:
                 await self.set_motor_velocity(v, ANGULAR_VELOCITY)
+                turn_count -= 1
+                print(turn_count)
+                if turn_count<=0:
+                    self.slight_right = False
+                    print('right off')
                 # self.slight_right = False
             else:
                 await self.set_motor_velocity(v)
         # turn off left and right turns
-        self.slight_left = False
-        self.slight_right = False
+        # self.slight_left = False
+        # self.slight_right = False
 
 
 '''
